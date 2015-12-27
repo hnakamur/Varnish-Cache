@@ -1,852 +1,5047 @@
-/*-
- * Copyright (c) 2006 Verdens Gang AS
- * Copyright (c) 2006-2015 Varnish Software AS
- * All rights reserved.
- *
- * Author: Poul-Henning Kamp <phk@phk.freebsd.dk>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
+# 1 "vcc_compile.c"
+# 1 "/builddir/build/BUILD/Varnish-Cache-37d738ea4c04629766e510daf3d440ac621d8156/lib/libvcc//"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 1 "<command-line>" 2
+# 1 "vcc_compile.c"
+# 53 "vcc_compile.c"
+# 1 "../../config.h" 1
+# 54 "vcc_compile.c" 2
 
-/*
- * XXX:
- *	Better error messages, throughout.
- *	>It also occurred to me that we could link the errors to the error
- *	>documentation.
- *	>
- *	>Unreferenced  function 'request_policy', first mention is
- *	>         Line 8 Pos 4
- *	>         sub request_policy {
- *	>         ----##############--
- *	>Read more about this type of error:
- *	>http://varnish/doc/error.html#Unreferenced%20function
- *	>
- *	>
- *	>         Unknown variable 'obj.bandwidth'
- *	>         At: Line 88 Pos 12
- *	>                 if (obj.bandwidth < 1 kb/h) {
- *	>         ------------#############------------
- *	>Read more about this type of error:
- *	>http://varnish/doc/error.html#Unknown%20variable
- *
- */
+# 1 "/usr/include/ctype.h" 1 3 4
+# 26 "/usr/include/ctype.h" 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 375 "/usr/include/features.h" 3 4
+# 1 "/usr/include/sys/cdefs.h" 1 3 4
+# 392 "/usr/include/sys/cdefs.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 393 "/usr/include/sys/cdefs.h" 2 3 4
+# 376 "/usr/include/features.h" 2 3 4
+# 399 "/usr/include/features.h" 3 4
+# 1 "/usr/include/gnu/stubs.h" 1 3 4
+# 10 "/usr/include/gnu/stubs.h" 3 4
+# 1 "/usr/include/gnu/stubs-64.h" 1 3 4
+# 11 "/usr/include/gnu/stubs.h" 2 3 4
+# 400 "/usr/include/features.h" 2 3 4
+# 27 "/usr/include/ctype.h" 2 3 4
+# 1 "/usr/include/bits/types.h" 1 3 4
+# 27 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 28 "/usr/include/bits/types.h" 2 3 4
 
-#include "config.h"
 
-#include <ctype.h>
-#include <errno.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
 
-#include "vcc_compile.h"
 
-#include "libvcc.h"
-#include "vfil.h"
+typedef signed char __int8_t;
+typedef unsigned char __uint8_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
+typedef unsigned int __uint32_t;
 
-struct method method_tab[] = {
-	{ "none", 0U, 0},
-#define VCL_MET_MAC(l,U,m)	{ "vcl_"#l, m, VCL_MET_##U },
-#include "tbl/vcl_returns.h"
-#undef VCL_MET_MAC
-	{ NULL, 0U, 0}
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
+
+
+
+
+
+
+
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
+# 130 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/include/bits/typesizes.h" 1 3 4
+# 131 "/usr/include/bits/types.h" 2 3 4
+
+
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
+
+typedef int __daddr_t;
+typedef int __key_t;
+
+
+typedef int __clockid_t;
+
+
+typedef void * __timer_t;
+
+
+typedef long int __blksize_t;
+
+
+
+
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
+
+
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
+
+
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
+
+
+typedef long int __fsword_t;
+
+typedef long int __ssize_t;
+
+
+typedef long int __syscall_slong_t;
+
+typedef unsigned long int __syscall_ulong_t;
+
+
+
+typedef __off64_t __loff_t;
+typedef __quad_t *__qaddr_t;
+typedef char *__caddr_t;
+
+
+typedef long int __intptr_t;
+
+
+typedef unsigned int __socklen_t;
+# 28 "/usr/include/ctype.h" 2 3 4
+
+
+# 40 "/usr/include/ctype.h" 3 4
+# 1 "/usr/include/endian.h" 1 3 4
+# 36 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/bits/endian.h" 1 3 4
+# 37 "/usr/include/endian.h" 2 3 4
+# 60 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/bits/byteswap.h" 1 3 4
+# 28 "/usr/include/bits/byteswap.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/bits/byteswap.h" 2 3 4
+
+
+
+
+
+
+# 1 "/usr/include/bits/byteswap-16.h" 1 3 4
+# 36 "/usr/include/bits/byteswap.h" 2 3 4
+# 44 "/usr/include/bits/byteswap.h" 3 4
+static __inline unsigned int
+__bswap_32 (unsigned int __bsx)
+{
+  return __builtin_bswap32 (__bsx);
+}
+# 108 "/usr/include/bits/byteswap.h" 3 4
+static __inline __uint64_t
+__bswap_64 (__uint64_t __bsx)
+{
+  return __builtin_bswap64 (__bsx);
+}
+# 61 "/usr/include/endian.h" 2 3 4
+# 41 "/usr/include/ctype.h" 2 3 4
+
+
+
+
+
+
+enum
+{
+  _ISupper = ((0) < 8 ? ((1 << (0)) << 8) : ((1 << (0)) >> 8)),
+  _ISlower = ((1) < 8 ? ((1 << (1)) << 8) : ((1 << (1)) >> 8)),
+  _ISalpha = ((2) < 8 ? ((1 << (2)) << 8) : ((1 << (2)) >> 8)),
+  _ISdigit = ((3) < 8 ? ((1 << (3)) << 8) : ((1 << (3)) >> 8)),
+  _ISxdigit = ((4) < 8 ? ((1 << (4)) << 8) : ((1 << (4)) >> 8)),
+  _ISspace = ((5) < 8 ? ((1 << (5)) << 8) : ((1 << (5)) >> 8)),
+  _ISprint = ((6) < 8 ? ((1 << (6)) << 8) : ((1 << (6)) >> 8)),
+  _ISgraph = ((7) < 8 ? ((1 << (7)) << 8) : ((1 << (7)) >> 8)),
+  _ISblank = ((8) < 8 ? ((1 << (8)) << 8) : ((1 << (8)) >> 8)),
+  _IScntrl = ((9) < 8 ? ((1 << (9)) << 8) : ((1 << (9)) >> 8)),
+  _ISpunct = ((10) < 8 ? ((1 << (10)) << 8) : ((1 << (10)) >> 8)),
+  _ISalnum = ((11) < 8 ? ((1 << (11)) << 8) : ((1 << (11)) >> 8))
+};
+# 80 "/usr/include/ctype.h" 3 4
+extern const unsigned short int **__ctype_b_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern const __int32_t **__ctype_tolower_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern const __int32_t **__ctype_toupper_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 105 "/usr/include/ctype.h" 3 4
+
+
+
+
+
+
+extern int isalnum (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isalpha (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int iscntrl (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isdigit (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int islower (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isgraph (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isprint (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int ispunct (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isspace (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isupper (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isxdigit (int) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int tolower (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int toupper (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+
+extern int isblank (int) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern int isctype (int __c, int __mask) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern int isascii (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int toascii (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int _toupper (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int _tolower (int) __attribute__ ((__nothrow__ , __leaf__));
+# 215 "/usr/include/ctype.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) int
+__attribute__ ((__nothrow__ , __leaf__)) tolower (int __c)
+{
+  return __c >= -128 && __c < 256 ? (*__ctype_tolower_loc ())[__c] : __c;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+__attribute__ ((__nothrow__ , __leaf__)) toupper (int __c)
+{
+  return __c >= -128 && __c < 256 ? (*__ctype_toupper_loc ())[__c] : __c;
+}
+# 258 "/usr/include/ctype.h" 3 4
+# 1 "/usr/include/xlocale.h" 1 3 4
+# 27 "/usr/include/xlocale.h" 3 4
+typedef struct __locale_struct
+{
+
+  struct __locale_data *__locales[13];
+
+
+  const unsigned short int *__ctype_b;
+  const int *__ctype_tolower;
+  const int *__ctype_toupper;
+
+
+  const char *__names[13];
+} *__locale_t;
+
+
+typedef __locale_t locale_t;
+# 259 "/usr/include/ctype.h" 2 3 4
+# 272 "/usr/include/ctype.h" 3 4
+extern int isalnum_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isalpha_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int iscntrl_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isdigit_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int islower_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isgraph_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isprint_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int ispunct_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isspace_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isupper_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isxdigit_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int isblank_l (int, __locale_t) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int __tolower_l (int __c, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+extern int tolower_l (int __c, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int __toupper_l (int __c, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+extern int toupper_l (int __c, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+# 348 "/usr/include/ctype.h" 3 4
+
+# 56 "vcc_compile.c" 2
+# 1 "/usr/include/errno.h" 1 3 4
+# 31 "/usr/include/errno.h" 3 4
+
+
+
+
+# 1 "/usr/include/bits/errno.h" 1 3 4
+# 24 "/usr/include/bits/errno.h" 3 4
+# 1 "/usr/include/linux/errno.h" 1 3 4
+# 1 "/usr/include/asm/errno.h" 1 3 4
+# 1 "/usr/include/asm-generic/errno.h" 1 3 4
+
+
+
+# 1 "/usr/include/asm-generic/errno-base.h" 1 3 4
+# 5 "/usr/include/asm-generic/errno.h" 2 3 4
+# 1 "/usr/include/asm/errno.h" 2 3 4
+# 1 "/usr/include/linux/errno.h" 2 3 4
+# 25 "/usr/include/bits/errno.h" 2 3 4
+# 50 "/usr/include/bits/errno.h" 3 4
+extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 36 "/usr/include/errno.h" 2 3 4
+# 54 "/usr/include/errno.h" 3 4
+extern char *program_invocation_name, *program_invocation_short_name;
+
+
+
+
+# 68 "/usr/include/errno.h" 3 4
+typedef int error_t;
+# 57 "vcc_compile.c" 2
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdarg.h" 3 4
+typedef __builtin_va_list __gnuc_va_list;
+# 98 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdarg.h" 3 4
+typedef __gnuc_va_list va_list;
+# 58 "vcc_compile.c" 2
+# 1 "/usr/include/stdio.h" 1 3 4
+# 29 "/usr/include/stdio.h" 3 4
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 212 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 34 "/usr/include/stdio.h" 2 3 4
+# 44 "/usr/include/stdio.h" 3 4
+struct _IO_FILE;
+
+
+
+typedef struct _IO_FILE FILE;
+
+
+
+
+
+# 64 "/usr/include/stdio.h" 3 4
+typedef struct _IO_FILE __FILE;
+# 74 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/libio.h" 1 3 4
+# 32 "/usr/include/libio.h" 3 4
+# 1 "/usr/include/_G_config.h" 1 3 4
+# 15 "/usr/include/_G_config.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 16 "/usr/include/_G_config.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/wchar.h" 1 3 4
+# 82 "/usr/include/wchar.h" 3 4
+typedef struct
+{
+  int __count;
+  union
+  {
+
+    unsigned int __wch;
+
+
+
+    char __wchb[4];
+  } __value;
+} __mbstate_t;
+# 21 "/usr/include/_G_config.h" 2 3 4
+typedef struct
+{
+  __off_t __pos;
+  __mbstate_t __state;
+} _G_fpos_t;
+typedef struct
+{
+  __off64_t __pos;
+  __mbstate_t __state;
+} _G_fpos64_t;
+# 33 "/usr/include/libio.h" 2 3 4
+# 145 "/usr/include/libio.h" 3 4
+struct _IO_jump_t; struct _IO_FILE;
+# 155 "/usr/include/libio.h" 3 4
+typedef void _IO_lock_t;
+
+
+
+
+
+struct _IO_marker {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
+
+
+
+  int _pos;
+# 178 "/usr/include/libio.h" 3 4
 };
 
-/*--------------------------------------------------------------------*/
+
+enum __codecvt_result
+{
+  __codecvt_ok,
+  __codecvt_partial,
+  __codecvt_error,
+  __codecvt_noconv
+};
+# 246 "/usr/include/libio.h" 3 4
+struct _IO_FILE {
+  int _flags;
+
+
+
+
+  char* _IO_read_ptr;
+  char* _IO_read_end;
+  char* _IO_read_base;
+  char* _IO_write_base;
+  char* _IO_write_ptr;
+  char* _IO_write_end;
+  char* _IO_buf_base;
+  char* _IO_buf_end;
+
+  char *_IO_save_base;
+  char *_IO_backup_base;
+  char *_IO_save_end;
+
+  struct _IO_marker *_markers;
+
+  struct _IO_FILE *_chain;
+
+  int _fileno;
+
+
+
+  int _flags2;
+
+  __off_t _old_offset;
+
+
+
+  unsigned short _cur_column;
+  signed char _vtable_offset;
+  char _shortbuf[1];
+
+
+
+  _IO_lock_t *_lock;
+# 294 "/usr/include/libio.h" 3 4
+  __off64_t _offset;
+# 303 "/usr/include/libio.h" 3 4
+  void *__pad1;
+  void *__pad2;
+  void *__pad3;
+  void *__pad4;
+  size_t __pad5;
+
+  int _mode;
+
+  char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
+
+};
+
+
+typedef struct _IO_FILE _IO_FILE;
+
+
+struct _IO_FILE_plus;
+
+extern struct _IO_FILE_plus _IO_2_1_stdin_;
+extern struct _IO_FILE_plus _IO_2_1_stdout_;
+extern struct _IO_FILE_plus _IO_2_1_stderr_;
+# 339 "/usr/include/libio.h" 3 4
+typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
+
+
+
+
+
+
+
+typedef __ssize_t __io_write_fn (void *__cookie, const char *__buf,
+     size_t __n);
+
+
+
+
+
+
+
+typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
+
+
+typedef int __io_close_fn (void *__cookie);
+
+
+
+
+typedef __io_read_fn cookie_read_function_t;
+typedef __io_write_fn cookie_write_function_t;
+typedef __io_seek_fn cookie_seek_function_t;
+typedef __io_close_fn cookie_close_function_t;
+
+
+typedef struct
+{
+  __io_read_fn *read;
+  __io_write_fn *write;
+  __io_seek_fn *seek;
+  __io_close_fn *close;
+} _IO_cookie_io_functions_t;
+typedef _IO_cookie_io_functions_t cookie_io_functions_t;
+
+struct _IO_cookie_file;
+
+
+extern void _IO_cookie_init (struct _IO_cookie_file *__cfile, int __read_write,
+        void *__cookie, _IO_cookie_io_functions_t __fns);
+
+
+
+
+
+
+
+extern int __underflow (_IO_FILE *);
+extern int __uflow (_IO_FILE *);
+extern int __overflow (_IO_FILE *, int);
+# 435 "/usr/include/libio.h" 3 4
+extern int _IO_getc (_IO_FILE *__fp);
+extern int _IO_putc (int __c, _IO_FILE *__fp);
+extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int _IO_peekc_locked (_IO_FILE *__fp);
+
+
+
+
+
+extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 465 "/usr/include/libio.h" 3 4
+extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
+   __gnuc_va_list, int *__restrict);
+extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
+    __gnuc_va_list);
+extern __ssize_t _IO_padn (_IO_FILE *, int, __ssize_t);
+extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
+
+extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
+extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
+
+extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 75 "/usr/include/stdio.h" 2 3 4
+# 90 "/usr/include/stdio.h" 3 4
+typedef __off_t off_t;
+
+
+
+
+
+
+typedef __off64_t off64_t;
+
+
+
+
+typedef __ssize_t ssize_t;
+
+
+
+
+
+
+
+typedef _G_fpos_t fpos_t;
+
+
+
+
+
+typedef _G_fpos64_t fpos64_t;
+# 164 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/bits/stdio_lim.h" 1 3 4
+# 165 "/usr/include/stdio.h" 2 3 4
+
+
+
+extern struct _IO_FILE *stdin;
+extern struct _IO_FILE *stdout;
+extern struct _IO_FILE *stderr;
+
+
+
+
+
+
+
+extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int renameat (int __oldfd, const char *__old, int __newfd,
+       const char *__new) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+
+extern FILE *tmpfile (void) __attribute__ ((__warn_unused_result__));
+# 205 "/usr/include/stdio.h" 3 4
+extern FILE *tmpfile64 (void) __attribute__ ((__warn_unused_result__));
+
+
+
+extern char *tmpnam (char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern char *tmpnam_r (char *__s) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+# 227 "/usr/include/stdio.h" 3 4
+extern char *tempnam (const char *__dir, const char *__pfx)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+
+extern int fclose (FILE *__stream);
+
+
+
+
+extern int fflush (FILE *__stream);
+
+# 252 "/usr/include/stdio.h" 3 4
+extern int fflush_unlocked (FILE *__stream);
+# 262 "/usr/include/stdio.h" 3 4
+extern int fcloseall (void);
+
+
+
+
+
+
+
+
+
+extern FILE *fopen (const char *__restrict __filename,
+      const char *__restrict __modes) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern FILE *freopen (const char *__restrict __filename,
+        const char *__restrict __modes,
+        FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+# 295 "/usr/include/stdio.h" 3 4
+
+
+extern FILE *fopen64 (const char *__restrict __filename,
+        const char *__restrict __modes) __attribute__ ((__warn_unused_result__));
+extern FILE *freopen64 (const char *__restrict __filename,
+   const char *__restrict __modes,
+   FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern FILE *fopencookie (void *__restrict __magic_cookie,
+     const char *__restrict __modes,
+     _IO_cookie_io_functions_t __io_funcs) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern FILE *fmemopen (void *__s, size_t __len, const char *__modes)
+  __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int setvbuf (FILE *__restrict __stream, char *__restrict __buf,
+      int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern void setbuffer (FILE *__restrict __stream, char *__restrict __buf,
+         size_t __size) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+
+extern int fprintf (FILE *__restrict __stream,
+      const char *__restrict __format, ...);
+
+
+
+
+extern int printf (const char *__restrict __format, ...);
+
+extern int sprintf (char *__restrict __s,
+      const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int vfprintf (FILE *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg);
+
+
+
+
+extern int vprintf (const char *__restrict __format, __gnuc_va_list __arg);
+
+extern int vsprintf (char *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int snprintf (char *__restrict __s, size_t __maxlen,
+       const char *__restrict __format, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
+
+extern int vsnprintf (char *__restrict __s, size_t __maxlen,
+        const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+
+
+
+
+
+
+extern int vasprintf (char **__restrict __ptr, const char *__restrict __f,
+        __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 0))) __attribute__ ((__warn_unused_result__));
+extern int __asprintf (char **__restrict __ptr,
+         const char *__restrict __fmt, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3))) __attribute__ ((__warn_unused_result__));
+extern int asprintf (char **__restrict __ptr,
+       const char *__restrict __fmt, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern int vdprintf (int __fd, const char *__restrict __fmt,
+       __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__printf__, 2, 0)));
+extern int dprintf (int __fd, const char *__restrict __fmt, ...)
+     __attribute__ ((__format__ (__printf__, 2, 3)));
+
+
+
+
+
+
+
+
+extern int fscanf (FILE *__restrict __stream,
+     const char *__restrict __format, ...) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern int scanf (const char *__restrict __format, ...) __attribute__ ((__warn_unused_result__));
+
+extern int sscanf (const char *__restrict __s,
+     const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+# 463 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+
+
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format,
+      __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 2, 0))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 1, 0))) __attribute__ ((__warn_unused_result__));
+
+
+extern int vsscanf (const char *__restrict __s,
+      const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 522 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+
+
+
+extern int fgetc (FILE *__stream);
+extern int getc (FILE *__stream);
+
+
+
+
+
+extern int getchar (void);
+
+# 550 "/usr/include/stdio.h" 3 4
+extern int getc_unlocked (FILE *__stream);
+extern int getchar_unlocked (void);
+# 561 "/usr/include/stdio.h" 3 4
+extern int fgetc_unlocked (FILE *__stream);
+
+
+
+
+
+
+
+
+
+
+
+extern int fputc (int __c, FILE *__stream);
+extern int putc (int __c, FILE *__stream);
+
+
+
+
+
+extern int putchar (int __c);
+
+# 594 "/usr/include/stdio.h" 3 4
+extern int fputc_unlocked (int __c, FILE *__stream);
+
+
+
+
+
+
+
+extern int putc_unlocked (int __c, FILE *__stream);
+extern int putchar_unlocked (int __c);
+
+
+
+
+
+
+extern int getw (FILE *__stream);
+
+
+extern int putw (int __w, FILE *__stream);
+
+
+
+
+
+
+
+
+extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+     __attribute__ ((__warn_unused_result__));
+# 640 "/usr/include/stdio.h" 3 4
+
+# 649 "/usr/include/stdio.h" 3 4
+extern char *fgets_unlocked (char *__restrict __s, int __n,
+        FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+# 665 "/usr/include/stdio.h" 3 4
+extern __ssize_t __getdelim (char **__restrict __lineptr,
+          size_t *__restrict __n, int __delimiter,
+          FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern __ssize_t getdelim (char **__restrict __lineptr,
+        size_t *__restrict __n, int __delimiter,
+        FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+extern __ssize_t getline (char **__restrict __lineptr,
+       size_t *__restrict __n,
+       FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+
+extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+
+
+
+
+
+extern int puts (const char *__s);
+
+
+
+
+
+
+extern int ungetc (int __c, FILE *__stream);
+
+
+
+
+
+
+extern size_t fread (void *__restrict __ptr, size_t __size,
+       size_t __n, FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern size_t fwrite (const void *__restrict __ptr, size_t __size,
+        size_t __n, FILE *__restrict __s);
+
+# 726 "/usr/include/stdio.h" 3 4
+extern int fputs_unlocked (const char *__restrict __s,
+      FILE *__restrict __stream);
+# 737 "/usr/include/stdio.h" 3 4
+extern size_t fread_unlocked (void *__restrict __ptr, size_t __size,
+         size_t __n, FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern size_t fwrite_unlocked (const void *__restrict __ptr, size_t __size,
+          size_t __n, FILE *__restrict __stream);
+
+
+
+
+
+
+
+
+extern int fseek (FILE *__stream, long int __off, int __whence);
+
+
+
+
+extern long int ftell (FILE *__stream) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern void rewind (FILE *__stream);
+
+# 773 "/usr/include/stdio.h" 3 4
+extern int fseeko (FILE *__stream, __off_t __off, int __whence);
+
+
+
+
+extern __off_t ftello (FILE *__stream) __attribute__ ((__warn_unused_result__));
+# 792 "/usr/include/stdio.h" 3 4
+
+
+
+
+
+
+extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos);
+
+
+
+
+extern int fsetpos (FILE *__stream, const fpos_t *__pos);
+# 815 "/usr/include/stdio.h" 3 4
+
+
+
+extern int fseeko64 (FILE *__stream, __off64_t __off, int __whence);
+extern __off64_t ftello64 (FILE *__stream) __attribute__ ((__warn_unused_result__));
+extern int fgetpos64 (FILE *__restrict __stream, fpos64_t *__restrict __pos);
+extern int fsetpos64 (FILE *__stream, const fpos64_t *__pos);
+
+
+
+
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+
+extern void perror (const char *__s);
+
+
+
+
+
+
+# 1 "/usr/include/bits/sys_errlist.h" 1 3 4
+# 26 "/usr/include/bits/sys_errlist.h" 3 4
+extern int sys_nerr;
+extern const char *const sys_errlist[];
+
+
+extern int _sys_nerr;
+extern const char *const _sys_errlist[];
+# 854 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+# 873 "/usr/include/stdio.h" 3 4
+extern FILE *popen (const char *__command, const char *__modes) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern int pclose (FILE *__stream);
+
+
+
+
+
+extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern char *cuserid (char *__s);
+
+
+
+
+struct obstack;
+
+
+extern int obstack_printf (struct obstack *__restrict __obstack,
+      const char *__restrict __format, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 3)));
+extern int obstack_vprintf (struct obstack *__restrict __obstack,
+       const char *__restrict __format,
+       __gnuc_va_list __args)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 2, 0)));
+
+
+
+
+
+
+
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 934 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/bits/stdio.h" 1 3 4
+# 43 "/usr/include/bits/stdio.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) int
+getchar (void)
+{
+  return _IO_getc (stdin);
+}
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+fgetc_unlocked (FILE *__fp)
+{
+  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
+}
+
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+getc_unlocked (FILE *__fp)
+{
+  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
+}
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+getchar_unlocked (void)
+{
+  return (__builtin_expect (((stdin)->_IO_read_ptr >= (stdin)->_IO_read_end), 0) ? __uflow (stdin) : *(unsigned char *) (stdin)->_IO_read_ptr++);
+}
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+putchar (int __c)
+{
+  return _IO_putc (__c, stdout);
+}
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+fputc_unlocked (int __c, FILE *__stream)
+{
+  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
+}
+
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+putc_unlocked (int __c, FILE *__stream)
+{
+  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
+}
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+putchar_unlocked (int __c)
+{
+  return (__builtin_expect (((stdout)->_IO_write_ptr >= (stdout)->_IO_write_end), 0) ? __overflow (stdout, (unsigned char) (__c)) : (unsigned char) (*(stdout)->_IO_write_ptr++ = (__c)));
+}
+
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) __ssize_t
+getline (char **__lineptr, size_t *__n, FILE *__stream)
+{
+  return __getdelim (__lineptr, __n, '\n', __stream);
+}
+
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+__attribute__ ((__nothrow__ , __leaf__)) feof_unlocked (FILE *__stream)
+{
+  return (((__stream)->_flags & 0x10) != 0);
+}
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+__attribute__ ((__nothrow__ , __leaf__)) ferror_unlocked (FILE *__stream)
+{
+  return (((__stream)->_flags & 0x20) != 0);
+}
+# 935 "/usr/include/stdio.h" 2 3 4
+
+
+# 1 "/usr/include/bits/stdio2.h" 1 3 4
+# 23 "/usr/include/bits/stdio2.h" 3 4
+extern int __sprintf_chk (char *__restrict __s, int __flag, size_t __slen,
+     const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+extern int __vsprintf_chk (char *__restrict __s, int __flag, size_t __slen,
+      const char *__restrict __format,
+      __gnuc_va_list __ap) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) sprintf (char *__restrict __s, const char *__restrict __fmt, ...)
+{
+  return __builtin___sprintf_chk (__s, 2 - 1,
+      __builtin_object_size (__s, 2 > 1), __fmt, __builtin_va_arg_pack ());
+}
+
+
+
+
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) vsprintf (char *__restrict __s, const char *__restrict __fmt, __gnuc_va_list __ap)
+
+{
+  return __builtin___vsprintf_chk (__s, 2 - 1,
+       __builtin_object_size (__s, 2 > 1), __fmt, __ap);
+}
+
+
+
+extern int __snprintf_chk (char *__restrict __s, size_t __n, int __flag,
+      size_t __slen, const char *__restrict __format,
+      ...) __attribute__ ((__nothrow__ , __leaf__));
+extern int __vsnprintf_chk (char *__restrict __s, size_t __n, int __flag,
+       size_t __slen, const char *__restrict __format,
+       __gnuc_va_list __ap) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) snprintf (char *__restrict __s, size_t __n, const char *__restrict __fmt, ...)
+
+{
+  return __builtin___snprintf_chk (__s, __n, 2 - 1,
+       __builtin_object_size (__s, 2 > 1), __fmt, __builtin_va_arg_pack ());
+}
+
+
+
+
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) vsnprintf (char *__restrict __s, size_t __n, const char *__restrict __fmt, __gnuc_va_list __ap)
+
+{
+  return __builtin___vsnprintf_chk (__s, __n, 2 - 1,
+        __builtin_object_size (__s, 2 > 1), __fmt, __ap);
+}
+
+
+
+
+
+extern int __fprintf_chk (FILE *__restrict __stream, int __flag,
+     const char *__restrict __format, ...);
+extern int __printf_chk (int __flag, const char *__restrict __format, ...);
+extern int __vfprintf_chk (FILE *__restrict __stream, int __flag,
+      const char *__restrict __format, __gnuc_va_list __ap);
+extern int __vprintf_chk (int __flag, const char *__restrict __format,
+     __gnuc_va_list __ap);
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+fprintf (FILE *__restrict __stream, const char *__restrict __fmt, ...)
+{
+  return __fprintf_chk (__stream, 2 - 1, __fmt,
+   __builtin_va_arg_pack ());
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+printf (const char *__restrict __fmt, ...)
+{
+  return __printf_chk (2 - 1, __fmt, __builtin_va_arg_pack ());
+}
+
+
+
+
+
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+vprintf (const char *__restrict __fmt, __gnuc_va_list __ap)
+{
+
+  return __vfprintf_chk (stdout, 2 - 1, __fmt, __ap);
+
+
+
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+vfprintf (FILE *__restrict __stream,
+   const char *__restrict __fmt, __gnuc_va_list __ap)
+{
+  return __vfprintf_chk (__stream, 2 - 1, __fmt, __ap);
+}
+
+
+extern int __dprintf_chk (int __fd, int __flag, const char *__restrict __fmt,
+     ...) __attribute__ ((__format__ (__printf__, 3, 4)));
+extern int __vdprintf_chk (int __fd, int __flag,
+      const char *__restrict __fmt, __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__printf__, 3, 0)));
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+dprintf (int __fd, const char *__restrict __fmt, ...)
+{
+  return __dprintf_chk (__fd, 2 - 1, __fmt,
+   __builtin_va_arg_pack ());
+}
+
+
+
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+vdprintf (int __fd, const char *__restrict __fmt, __gnuc_va_list __ap)
+{
+  return __vdprintf_chk (__fd, 2 - 1, __fmt, __ap);
+}
+
+
+
+
+extern int __asprintf_chk (char **__restrict __ptr, int __flag,
+      const char *__restrict __fmt, ...)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__printf__, 3, 4))) __attribute__ ((__warn_unused_result__));
+extern int __vasprintf_chk (char **__restrict __ptr, int __flag,
+       const char *__restrict __fmt, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__printf__, 3, 0))) __attribute__ ((__warn_unused_result__));
+extern int __obstack_printf_chk (struct obstack *__restrict __obstack,
+     int __flag, const char *__restrict __format,
+     ...)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__printf__, 3, 4)));
+extern int __obstack_vprintf_chk (struct obstack *__restrict __obstack,
+      int __flag,
+      const char *__restrict __format,
+      __gnuc_va_list __args)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) asprintf (char **__restrict __ptr, const char *__restrict __fmt, ...)
+{
+  return __asprintf_chk (__ptr, 2 - 1, __fmt,
+    __builtin_va_arg_pack ());
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) __asprintf (char **__restrict __ptr, const char *__restrict __fmt, ...)
+
+{
+  return __asprintf_chk (__ptr, 2 - 1, __fmt,
+    __builtin_va_arg_pack ());
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) obstack_printf (struct obstack *__restrict __obstack, const char *__restrict __fmt, ...)
+
+{
+  return __obstack_printf_chk (__obstack, 2 - 1, __fmt,
+          __builtin_va_arg_pack ());
+}
+# 206 "/usr/include/bits/stdio2.h" 3 4
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) vasprintf (char **__restrict __ptr, const char *__restrict __fmt, __gnuc_va_list __ap)
+
+{
+  return __vasprintf_chk (__ptr, 2 - 1, __fmt, __ap);
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) obstack_vprintf (struct obstack *__restrict __obstack, const char *__restrict __fmt, __gnuc_va_list __ap)
+
+{
+  return __obstack_vprintf_chk (__obstack, 2 - 1, __fmt,
+    __ap);
+}
+# 241 "/usr/include/bits/stdio2.h" 3 4
+extern char *__fgets_chk (char *__restrict __s, size_t __size, int __n,
+     FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern char *__fgets_alias (char *__restrict __s, int __n, FILE *__restrict __stream) __asm__ ("" "fgets")
+
+                                        __attribute__ ((__warn_unused_result__));
+extern char *__fgets_chk_warn (char *__restrict __s, size_t __size, int __n, FILE *__restrict __stream) __asm__ ("" "__fgets_chk")
+
+
+     __attribute__ ((__warn_unused_result__)) __attribute__((__warning__ ("fgets called with bigger size than length " "of destination buffer")))
+                                 ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) char *
+fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+{
+  if (__builtin_object_size (__s, 2 > 1) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__n) || __n <= 0)
+ return __fgets_chk (__s, __builtin_object_size (__s, 2 > 1), __n, __stream);
+
+      if ((size_t) __n > __builtin_object_size (__s, 2 > 1))
+ return __fgets_chk_warn (__s, __builtin_object_size (__s, 2 > 1), __n, __stream);
+    }
+  return __fgets_alias (__s, __n, __stream);
+}
+
+extern size_t __fread_chk (void *__restrict __ptr, size_t __ptrlen,
+      size_t __size, size_t __n,
+      FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern size_t __fread_alias (void *__restrict __ptr, size_t __size, size_t __n, FILE *__restrict __stream) __asm__ ("" "fread")
+
+
+            __attribute__ ((__warn_unused_result__));
+extern size_t __fread_chk_warn (void *__restrict __ptr, size_t __ptrlen, size_t __size, size_t __n, FILE *__restrict __stream) __asm__ ("" "__fread_chk")
+
+
+
+
+     __attribute__ ((__warn_unused_result__)) __attribute__((__warning__ ("fread called with bigger size * nmemb than length " "of destination buffer")))
+                                 ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) size_t
+fread (void *__restrict __ptr, size_t __size, size_t __n,
+       FILE *__restrict __stream)
+{
+  if (__builtin_object_size (__ptr, 0) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__size)
+   || !__builtin_constant_p (__n)
+   || (__size | __n) >= (((size_t) 1) << (8 * sizeof (size_t) / 2)))
+ return __fread_chk (__ptr, __builtin_object_size (__ptr, 0), __size, __n, __stream);
+
+      if (__size * __n > __builtin_object_size (__ptr, 0))
+ return __fread_chk_warn (__ptr, __builtin_object_size (__ptr, 0), __size, __n, __stream);
+    }
+  return __fread_alias (__ptr, __size, __n, __stream);
+}
+
+
+extern char *__fgets_unlocked_chk (char *__restrict __s, size_t __size,
+       int __n, FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern char *__fgets_unlocked_alias (char *__restrict __s, int __n, FILE *__restrict __stream) __asm__ ("" "fgets_unlocked")
+
+                                                 __attribute__ ((__warn_unused_result__));
+extern char *__fgets_unlocked_chk_warn (char *__restrict __s, size_t __size, int __n, FILE *__restrict __stream) __asm__ ("" "__fgets_unlocked_chk")
+
+
+     __attribute__ ((__warn_unused_result__)) __attribute__((__warning__ ("fgets_unlocked called with bigger size than length " "of destination buffer")))
+                                 ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) char *
+fgets_unlocked (char *__restrict __s, int __n, FILE *__restrict __stream)
+{
+  if (__builtin_object_size (__s, 2 > 1) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__n) || __n <= 0)
+ return __fgets_unlocked_chk (__s, __builtin_object_size (__s, 2 > 1), __n, __stream);
+
+      if ((size_t) __n > __builtin_object_size (__s, 2 > 1))
+ return __fgets_unlocked_chk_warn (__s, __builtin_object_size (__s, 2 > 1), __n, __stream);
+    }
+  return __fgets_unlocked_alias (__s, __n, __stream);
+}
+
+
+
+
+extern size_t __fread_unlocked_chk (void *__restrict __ptr, size_t __ptrlen,
+        size_t __size, size_t __n,
+        FILE *__restrict __stream) __attribute__ ((__warn_unused_result__));
+extern size_t __fread_unlocked_alias (void *__restrict __ptr, size_t __size, size_t __n, FILE *__restrict __stream) __asm__ ("" "fread_unlocked")
+
+
+                     __attribute__ ((__warn_unused_result__));
+extern size_t __fread_unlocked_chk_warn (void *__restrict __ptr, size_t __ptrlen, size_t __size, size_t __n, FILE *__restrict __stream) __asm__ ("" "__fread_unlocked_chk")
+
+
+
+
+     __attribute__ ((__warn_unused_result__)) __attribute__((__warning__ ("fread_unlocked called with bigger size * nmemb than " "length of destination buffer")))
+                                        ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) size_t
+fread_unlocked (void *__restrict __ptr, size_t __size, size_t __n,
+  FILE *__restrict __stream)
+{
+  if (__builtin_object_size (__ptr, 0) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__size)
+   || !__builtin_constant_p (__n)
+   || (__size | __n) >= (((size_t) 1) << (8 * sizeof (size_t) / 2)))
+ return __fread_unlocked_chk (__ptr, __builtin_object_size (__ptr, 0), __size, __n,
+         __stream);
+
+      if (__size * __n > __builtin_object_size (__ptr, 0))
+ return __fread_unlocked_chk_warn (__ptr, __builtin_object_size (__ptr, 0), __size, __n,
+       __stream);
+    }
+
+
+  if (__builtin_constant_p (__size)
+      && __builtin_constant_p (__n)
+      && (__size | __n) < (((size_t) 1) << (8 * sizeof (size_t) / 2))
+      && __size * __n <= 8)
+    {
+      size_t __cnt = __size * __n;
+      char *__cptr = (char *) __ptr;
+      if (__cnt == 0)
+ return 0;
+
+      for (; __cnt > 0; --__cnt)
+ {
+   int __c = (__builtin_expect (((__stream)->_IO_read_ptr >= (__stream)->_IO_read_end), 0) ? __uflow (__stream) : *(unsigned char *) (__stream)->_IO_read_ptr++);
+   if (__c == (-1))
+     break;
+   *__cptr++ = __c;
+ }
+      return (__cptr - (char *) __ptr) / __size;
+    }
+
+  return __fread_unlocked_alias (__ptr, __size, __n, __stream);
+}
+# 938 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+
+
+# 59 "vcc_compile.c" 2
+# 1 "/usr/include/stdlib.h" 1 3 4
+# 32 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 324 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 3 4
+typedef int wchar_t;
+# 33 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+
+
+
+# 1 "/usr/include/bits/waitflags.h" 1 3 4
+# 42 "/usr/include/stdlib.h" 2 3 4
+# 1 "/usr/include/bits/waitstatus.h" 1 3 4
+# 66 "/usr/include/bits/waitstatus.h" 3 4
+union wait
+  {
+    int w_status;
+    struct
+      {
+
+ unsigned int __w_termsig:7;
+ unsigned int __w_coredump:1;
+ unsigned int __w_retcode:8;
+ unsigned int:16;
+
+
+
+
+
+
+
+      } __wait_terminated;
+    struct
+      {
+
+ unsigned int __w_stopval:8;
+ unsigned int __w_stopsig:8;
+ unsigned int:16;
+
+
+
+
+
+
+      } __wait_stopped;
+  };
+# 43 "/usr/include/stdlib.h" 2 3 4
+# 67 "/usr/include/stdlib.h" 3 4
+typedef union
+  {
+    union wait *__uptr;
+    int *__iptr;
+  } __WAIT_STATUS __attribute__ ((__transparent_union__));
+# 95 "/usr/include/stdlib.h" 3 4
+
+
+typedef struct
+  {
+    int quot;
+    int rem;
+  } div_t;
+
+
+
+typedef struct
+  {
+    long int quot;
+    long int rem;
+  } ldiv_t;
+
+
+
+
+
+
+
+__extension__ typedef struct
+  {
+    long long int quot;
+    long long int rem;
+  } lldiv_t;
+
+
+# 139 "/usr/include/stdlib.h" 3 4
+extern size_t __ctype_get_mb_cur_max (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern double atof (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+extern int atoi (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+extern long int atol (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+__extension__ extern long long int atoll (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern double strtod (const char *__restrict __nptr,
+        char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern float strtof (const char *__restrict __nptr,
+       char **__restrict __endptr) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern long double strtold (const char *__restrict __nptr,
+       char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern long int strtol (const char *__restrict __nptr,
+   char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern unsigned long int strtoul (const char *__restrict __nptr,
+      char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+__extension__
+extern long long int strtoq (const char *__restrict __nptr,
+        char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+__extension__
+extern unsigned long long int strtouq (const char *__restrict __nptr,
+           char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+__extension__
+extern long long int strtoll (const char *__restrict __nptr,
+         char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+__extension__
+extern unsigned long long int strtoull (const char *__restrict __nptr,
+     char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+# 239 "/usr/include/stdlib.h" 3 4
+extern long int strtol_l (const char *__restrict __nptr,
+     char **__restrict __endptr, int __base,
+     __locale_t __loc) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 4)));
+
+extern unsigned long int strtoul_l (const char *__restrict __nptr,
+        char **__restrict __endptr,
+        int __base, __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 4)));
+
+__extension__
+extern long long int strtoll_l (const char *__restrict __nptr,
+    char **__restrict __endptr, int __base,
+    __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 4)));
+
+__extension__
+extern unsigned long long int strtoull_l (const char *__restrict __nptr,
+       char **__restrict __endptr,
+       int __base, __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 4)));
+
+extern double strtod_l (const char *__restrict __nptr,
+   char **__restrict __endptr, __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 3)));
+
+extern float strtof_l (const char *__restrict __nptr,
+         char **__restrict __endptr, __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 3)));
+
+extern long double strtold_l (const char *__restrict __nptr,
+         char **__restrict __endptr,
+         __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 3)));
+
+
+
+
+
+extern __inline __attribute__ ((__gnu_inline__)) int
+__attribute__ ((__nothrow__ , __leaf__)) atoi (const char *__nptr)
+{
+  return (int) strtol (__nptr, (char **) ((void *)0), 10);
+}
+extern __inline __attribute__ ((__gnu_inline__)) long int
+__attribute__ ((__nothrow__ , __leaf__)) atol (const char *__nptr)
+{
+  return strtol (__nptr, (char **) ((void *)0), 10);
+}
+
+
+
+
+__extension__ extern __inline __attribute__ ((__gnu_inline__)) long long int
+__attribute__ ((__nothrow__ , __leaf__)) atoll (const char *__nptr)
+{
+  return strtoll (__nptr, (char **) ((void *)0), 10);
+}
+
+# 305 "/usr/include/stdlib.h" 3 4
+extern char *l64a (long int __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+extern long int a64l (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+# 1 "/usr/include/sys/types.h" 1 3 4
+# 27 "/usr/include/sys/types.h" 3 4
+
+
+
+
+
+
+typedef __u_char u_char;
+typedef __u_short u_short;
+typedef __u_int u_int;
+typedef __u_long u_long;
+typedef __quad_t quad_t;
+typedef __u_quad_t u_quad_t;
+typedef __fsid_t fsid_t;
+
+
+
+
+typedef __loff_t loff_t;
+
+
+
+typedef __ino_t ino_t;
+
+
+
+
+
+
+typedef __ino64_t ino64_t;
+
+
+
+
+typedef __dev_t dev_t;
+
+
+
+
+typedef __gid_t gid_t;
+
+
+
+
+typedef __mode_t mode_t;
+
+
+
+
+typedef __nlink_t nlink_t;
+
+
+
+
+typedef __uid_t uid_t;
+# 98 "/usr/include/sys/types.h" 3 4
+typedef __pid_t pid_t;
+
+
+
+
+
+typedef __id_t id_t;
+# 115 "/usr/include/sys/types.h" 3 4
+typedef __daddr_t daddr_t;
+typedef __caddr_t caddr_t;
+
+
+
+
+
+typedef __key_t key_t;
+# 132 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/include/time.h" 1 3 4
+# 57 "/usr/include/time.h" 3 4
+
+
+typedef __clock_t clock_t;
+
+
+
+# 73 "/usr/include/time.h" 3 4
+
+
+typedef __time_t time_t;
+
+
+
+# 91 "/usr/include/time.h" 3 4
+typedef __clockid_t clockid_t;
+# 103 "/usr/include/time.h" 3 4
+typedef __timer_t timer_t;
+# 133 "/usr/include/sys/types.h" 2 3 4
+
+
+
+typedef __useconds_t useconds_t;
+
+
+
+typedef __suseconds_t suseconds_t;
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 147 "/usr/include/sys/types.h" 2 3 4
+
+
+
+typedef unsigned long int ulong;
+typedef unsigned short int ushort;
+typedef unsigned int uint;
+# 194 "/usr/include/sys/types.h" 3 4
+typedef int int8_t __attribute__ ((__mode__ (__QI__)));
+typedef int int16_t __attribute__ ((__mode__ (__HI__)));
+typedef int int32_t __attribute__ ((__mode__ (__SI__)));
+typedef int int64_t __attribute__ ((__mode__ (__DI__)));
+
+
+typedef unsigned int u_int8_t __attribute__ ((__mode__ (__QI__)));
+typedef unsigned int u_int16_t __attribute__ ((__mode__ (__HI__)));
+typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
+typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
+
+typedef int register_t __attribute__ ((__mode__ (__word__)));
+# 219 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/include/sys/select.h" 1 3 4
+# 30 "/usr/include/sys/select.h" 3 4
+# 1 "/usr/include/bits/select.h" 1 3 4
+# 22 "/usr/include/bits/select.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 23 "/usr/include/bits/select.h" 2 3 4
+# 31 "/usr/include/sys/select.h" 2 3 4
+
+
+# 1 "/usr/include/bits/sigset.h" 1 3 4
+# 23 "/usr/include/bits/sigset.h" 3 4
+typedef int __sig_atomic_t;
+
+
+
+
+typedef struct
+  {
+    unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
+  } __sigset_t;
+# 34 "/usr/include/sys/select.h" 2 3 4
+
+
+
+typedef __sigset_t sigset_t;
+
+
+
+
+
+# 1 "/usr/include/time.h" 1 3 4
+# 120 "/usr/include/time.h" 3 4
+struct timespec
+  {
+    __time_t tv_sec;
+    __syscall_slong_t tv_nsec;
+  };
+# 44 "/usr/include/sys/select.h" 2 3 4
+
+# 1 "/usr/include/bits/time.h" 1 3 4
+# 30 "/usr/include/bits/time.h" 3 4
+struct timeval
+  {
+    __time_t tv_sec;
+    __suseconds_t tv_usec;
+  };
+# 46 "/usr/include/sys/select.h" 2 3 4
+# 54 "/usr/include/sys/select.h" 3 4
+typedef long int __fd_mask;
+# 64 "/usr/include/sys/select.h" 3 4
+typedef struct
+  {
+
+
+
+    __fd_mask fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
+
+
+
+
+
+  } fd_set;
+
+
+
+
+
+
+typedef __fd_mask fd_mask;
+# 96 "/usr/include/sys/select.h" 3 4
+
+# 106 "/usr/include/sys/select.h" 3 4
+extern int select (int __nfds, fd_set *__restrict __readfds,
+     fd_set *__restrict __writefds,
+     fd_set *__restrict __exceptfds,
+     struct timeval *__restrict __timeout);
+# 118 "/usr/include/sys/select.h" 3 4
+extern int pselect (int __nfds, fd_set *__restrict __readfds,
+      fd_set *__restrict __writefds,
+      fd_set *__restrict __exceptfds,
+      const struct timespec *__restrict __timeout,
+      const __sigset_t *__restrict __sigmask);
+
+
+
+
+
+# 1 "/usr/include/bits/select2.h" 1 3 4
+# 24 "/usr/include/bits/select2.h" 3 4
+extern long int __fdelt_chk (long int __d);
+extern long int __fdelt_warn (long int __d)
+  __attribute__((__warning__ ("bit outside of fd_set selected")));
+# 129 "/usr/include/sys/select.h" 2 3 4
+
+
+
+# 220 "/usr/include/sys/types.h" 2 3 4
+
+
+# 1 "/usr/include/sys/sysmacros.h" 1 3 4
+# 29 "/usr/include/sys/sysmacros.h" 3 4
+
+
+__extension__
+extern unsigned int gnu_dev_major (unsigned long long int __dev)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+__extension__
+extern unsigned int gnu_dev_minor (unsigned long long int __dev)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+__extension__
+extern unsigned long long int gnu_dev_makedev (unsigned int __major,
+            unsigned int __minor)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+__extension__ extern __inline __attribute__ ((__gnu_inline__)) __attribute__ ((__const__)) unsigned int
+__attribute__ ((__nothrow__ , __leaf__)) gnu_dev_major (unsigned long long int __dev)
+{
+  return ((__dev >> 8) & 0xfff) | ((unsigned int) (__dev >> 32) & ~0xfff);
+}
+
+__extension__ extern __inline __attribute__ ((__gnu_inline__)) __attribute__ ((__const__)) unsigned int
+__attribute__ ((__nothrow__ , __leaf__)) gnu_dev_minor (unsigned long long int __dev)
+{
+  return (__dev & 0xff) | ((unsigned int) (__dev >> 12) & ~0xff);
+}
+
+__extension__ extern __inline __attribute__ ((__gnu_inline__)) __attribute__ ((__const__)) unsigned long long int
+__attribute__ ((__nothrow__ , __leaf__)) gnu_dev_makedev (unsigned int __major, unsigned int __minor)
+{
+  return ((__minor & 0xff) | ((__major & 0xfff) << 8)
+   | (((unsigned long long int) (__minor & ~0xff)) << 12)
+   | (((unsigned long long int) (__major & ~0xfff)) << 32));
+}
+
+
+# 223 "/usr/include/sys/types.h" 2 3 4
+
+
+
+
+
+typedef __blksize_t blksize_t;
+
+
+
+
+
+
+typedef __blkcnt_t blkcnt_t;
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+
+
+
+typedef __fsfilcnt_t fsfilcnt_t;
+# 262 "/usr/include/sys/types.h" 3 4
+typedef __blkcnt64_t blkcnt64_t;
+typedef __fsblkcnt64_t fsblkcnt64_t;
+typedef __fsfilcnt64_t fsfilcnt64_t;
+
+
+
+
+
+# 1 "/usr/include/bits/pthreadtypes.h" 1 3 4
+# 21 "/usr/include/bits/pthreadtypes.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 22 "/usr/include/bits/pthreadtypes.h" 2 3 4
+# 60 "/usr/include/bits/pthreadtypes.h" 3 4
+typedef unsigned long int pthread_t;
+
+
+union pthread_attr_t
+{
+  char __size[56];
+  long int __align;
+};
+
+typedef union pthread_attr_t pthread_attr_t;
+
+
+
+
+
+typedef struct __pthread_internal_list
+{
+  struct __pthread_internal_list *__prev;
+  struct __pthread_internal_list *__next;
+} __pthread_list_t;
+# 90 "/usr/include/bits/pthreadtypes.h" 3 4
+typedef union
+{
+  struct __pthread_mutex_s
+  {
+    int __lock;
+    unsigned int __count;
+    int __owner;
+
+    unsigned int __nusers;
+
+
+
+    int __kind;
+
+    int __spins;
+    __pthread_list_t __list;
+# 115 "/usr/include/bits/pthreadtypes.h" 3 4
+  } __data;
+  char __size[40];
+  long int __align;
+} pthread_mutex_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_mutexattr_t;
+
+
+
+
+typedef union
+{
+  struct
+  {
+    int __lock;
+    unsigned int __futex;
+    __extension__ unsigned long long int __total_seq;
+    __extension__ unsigned long long int __wakeup_seq;
+    __extension__ unsigned long long int __woken_seq;
+    void *__mutex;
+    unsigned int __nwaiters;
+    unsigned int __broadcast_seq;
+  } __data;
+  char __size[48];
+  __extension__ long long int __align;
+} pthread_cond_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_condattr_t;
+
+
+
+typedef unsigned int pthread_key_t;
+
+
+
+typedef int pthread_once_t;
+
+
+
+
+
+typedef union
+{
+
+  struct
+  {
+    int __lock;
+    unsigned int __nr_readers;
+    unsigned int __readers_wakeup;
+    unsigned int __writer_wakeup;
+    unsigned int __nr_readers_queued;
+    unsigned int __nr_writers_queued;
+    int __writer;
+    int __shared;
+    unsigned long int __pad1;
+    unsigned long int __pad2;
+
+
+    unsigned int __flags;
+
+  } __data;
+# 202 "/usr/include/bits/pthreadtypes.h" 3 4
+  char __size[56];
+  long int __align;
+} pthread_rwlock_t;
+
+typedef union
+{
+  char __size[8];
+  long int __align;
+} pthread_rwlockattr_t;
+
+
+
+
+
+typedef volatile int pthread_spinlock_t;
+
+
+
+
+typedef union
+{
+  char __size[32];
+  long int __align;
+} pthread_barrier_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_barrierattr_t;
+# 271 "/usr/include/sys/types.h" 2 3 4
+
+
+
+# 315 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+
+extern long int random (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern void srandom (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern char *initstate (unsigned int __seed, char *__statebuf,
+   size_t __statelen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+extern char *setstate (char *__statebuf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+struct random_data
+  {
+    int32_t *fptr;
+    int32_t *rptr;
+    int32_t *state;
+    int rand_type;
+    int rand_deg;
+    int rand_sep;
+    int32_t *end_ptr;
+  };
+
+extern int random_r (struct random_data *__restrict __buf,
+       int32_t *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int srandom_r (unsigned int __seed, struct random_data *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+extern int initstate_r (unsigned int __seed, char *__restrict __statebuf,
+   size_t __statelen,
+   struct random_data *__restrict __buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
+
+extern int setstate_r (char *__restrict __statebuf,
+         struct random_data *__restrict __buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+extern int rand (void) __attribute__ ((__nothrow__ , __leaf__));
+
+extern void srand (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int rand_r (unsigned int *__seed) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+extern double drand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern double erand48 (unsigned short int __xsubi[3]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern long int lrand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern long int nrand48 (unsigned short int __xsubi[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern long int mrand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern long int jrand48 (unsigned short int __xsubi[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern void srand48 (long int __seedval) __attribute__ ((__nothrow__ , __leaf__));
+extern unsigned short int *seed48 (unsigned short int __seed16v[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void lcong48 (unsigned short int __param[7]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+struct drand48_data
+  {
+    unsigned short int __x[3];
+    unsigned short int __old_x[3];
+    unsigned short int __c;
+    unsigned short int __init;
+    unsigned long long int __a;
+  };
+
+
+extern int drand48_r (struct drand48_data *__restrict __buffer,
+        double *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int erand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        double *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int lrand48_r (struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int nrand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int mrand48_r (struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int jrand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int srand48_r (long int __seedval, struct drand48_data *__buffer)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+extern int seed48_r (unsigned short int __seed16v[3],
+       struct drand48_data *__buffer) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int lcong48_r (unsigned short int __param[7],
+        struct drand48_data *__buffer)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+
+
+
+extern void *malloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__warn_unused_result__));
+
+extern void *calloc (size_t __nmemb, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+
+
+
+extern void *realloc (void *__ptr, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern void cfree (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+# 1 "/usr/include/alloca.h" 1 3 4
+# 24 "/usr/include/alloca.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 25 "/usr/include/alloca.h" 2 3 4
+
+
+
+
+
+
+
+extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+# 492 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern void *aligned_alloc (size_t __alignment, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__)) __attribute__ ((__malloc__, __alloc_size__ (2)));
+
+
+
+
+extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+extern int atexit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern int at_quick_exit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern int on_exit (void (*__func) (int __status, void *__arg), void *__arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern void exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+extern void quick_exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+
+
+extern void _Exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
+
+
+
+
+
+
+extern char *getenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern char *secure_getenv (const char *__name)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+extern int putenv (char *__string) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int setenv (const char *__name, const char *__value, int __replace)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+extern int unsetenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern int clearenv (void) __attribute__ ((__nothrow__ , __leaf__));
+# 605 "/usr/include/stdlib.h" 3 4
+extern char *mktemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 619 "/usr/include/stdlib.h" 3 4
+extern int mkstemp (char *__template) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 629 "/usr/include/stdlib.h" 3 4
+extern int mkstemp64 (char *__template) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 641 "/usr/include/stdlib.h" 3 4
+extern int mkstemps (char *__template, int __suffixlen) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 651 "/usr/include/stdlib.h" 3 4
+extern int mkstemps64 (char *__template, int __suffixlen)
+     __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 662 "/usr/include/stdlib.h" 3 4
+extern char *mkdtemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 673 "/usr/include/stdlib.h" 3 4
+extern int mkostemp (char *__template, int __flags) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 683 "/usr/include/stdlib.h" 3 4
+extern int mkostemp64 (char *__template, int __flags) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 693 "/usr/include/stdlib.h" 3 4
+extern int mkostemps (char *__template, int __suffixlen, int __flags)
+     __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 705 "/usr/include/stdlib.h" 3 4
+extern int mkostemps64 (char *__template, int __suffixlen, int __flags)
+     __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+
+
+extern int system (const char *__command) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+extern char *canonicalize_file_name (const char *__name)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 733 "/usr/include/stdlib.h" 3 4
+extern char *realpath (const char *__restrict __name,
+         char *__restrict __resolved) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+typedef int (*__compar_fn_t) (const void *, const void *);
+
+
+typedef __compar_fn_t comparison_fn_t;
+
+
+
+typedef int (*__compar_d_fn_t) (const void *, const void *, void *);
+
+
+
+
+
+extern void *bsearch (const void *__key, const void *__base,
+        size_t __nmemb, size_t __size, __compar_fn_t __compar)
+     __attribute__ ((__nonnull__ (1, 2, 5))) __attribute__ ((__warn_unused_result__));
+
+
+
+extern void qsort (void *__base, size_t __nmemb, size_t __size,
+     __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 4)));
+
+extern void qsort_r (void *__base, size_t __nmemb, size_t __size,
+       __compar_d_fn_t __compar, void *__arg)
+  __attribute__ ((__nonnull__ (1, 4)));
+
+
+
+
+extern int abs (int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+extern long int labs (long int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+
+
+
+__extension__ extern long long int llabs (long long int __x)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+extern div_t div (int __numer, int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+extern ldiv_t ldiv (long int __numer, long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+__extension__ extern lldiv_t lldiv (long long int __numer,
+        long long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) __attribute__ ((__warn_unused_result__));
+
+# 807 "/usr/include/stdlib.h" 3 4
+extern char *ecvt (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern char *fcvt (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern char *gcvt (double __value, int __ndigit, char *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern char *qecvt (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) __attribute__ ((__warn_unused_result__));
+extern char *qfcvt (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) __attribute__ ((__warn_unused_result__));
+extern char *qgcvt (long double __value, int __ndigit, char *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+extern int ecvt_r (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign, char *__restrict __buf,
+     size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+extern int fcvt_r (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign, char *__restrict __buf,
+     size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+
+extern int qecvt_r (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign,
+      char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+extern int qfcvt_r (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign,
+      char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+
+
+
+
+
+
+
+extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+extern int mbtowc (wchar_t *__restrict __pwc,
+     const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+extern size_t mbstowcs (wchar_t *__restrict __pwcs,
+   const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+extern size_t wcstombs (char *__restrict __s,
+   const wchar_t *__restrict __pwcs, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+
+extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__warn_unused_result__));
+# 895 "/usr/include/stdlib.h" 3 4
+extern int getsubopt (char **__restrict __optionp,
+        char *const *__restrict __tokens,
+        char **__restrict __valuep)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern void setkey (const char *__key) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern int posix_openpt (int __oflag) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+
+extern int grantpt (int __fd) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int unlockpt (int __fd) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern char *ptsname (int __fd) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+
+extern int ptsname_r (int __fd, char *__buf, size_t __buflen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+extern int getpt (void);
+
+
+
+
+
+
+extern int getloadavg (double __loadavg[], int __nelem)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+# 1 "/usr/include/bits/stdlib-float.h" 1 3 4
+# 24 "/usr/include/bits/stdlib-float.h" 3 4
+
+extern __inline __attribute__ ((__gnu_inline__)) double
+__attribute__ ((__nothrow__ , __leaf__)) atof (const char *__nptr)
+{
+  return strtod (__nptr, (char **) ((void *)0));
+}
+
+# 952 "/usr/include/stdlib.h" 2 3 4
+
+
+
+# 1 "/usr/include/bits/stdlib.h" 1 3 4
+# 23 "/usr/include/bits/stdlib.h" 3 4
+extern char *__realpath_chk (const char *__restrict __name,
+        char *__restrict __resolved,
+        size_t __resolvedlen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+extern char *__realpath_alias (const char *__restrict __name, char *__restrict __resolved) __asm__ ("" "realpath") __attribute__ ((__nothrow__ , __leaf__))
+
+                                                 __attribute__ ((__warn_unused_result__));
+extern char *__realpath_chk_warn (const char *__restrict __name, char *__restrict __resolved, size_t __resolvedlen) __asm__ ("" "__realpath_chk") __attribute__ ((__nothrow__ , __leaf__))
+
+
+                                                __attribute__ ((__warn_unused_result__))
+     __attribute__((__warning__ ("second argument of realpath must be either NULL or at " "least PATH_MAX bytes long buffer")))
+                                      ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) realpath (const char *__restrict __name, char *__restrict __resolved)
+{
+  if (__builtin_object_size (__resolved, 2 > 1) != (size_t) -1)
+    {
+
+
+
+
+      return __realpath_chk (__name, __resolved, __builtin_object_size (__resolved, 2 > 1));
+    }
+
+  return __realpath_alias (__name, __resolved);
+}
+
+
+extern int __ptsname_r_chk (int __fd, char *__buf, size_t __buflen,
+       size_t __nreal) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+extern int __ptsname_r_alias (int __fd, char *__buf, size_t __buflen) __asm__ ("" "ptsname_r") __attribute__ ((__nothrow__ , __leaf__))
+
+     __attribute__ ((__nonnull__ (2)));
+extern int __ptsname_r_chk_warn (int __fd, char *__buf, size_t __buflen, size_t __nreal) __asm__ ("" "__ptsname_r_chk") __attribute__ ((__nothrow__ , __leaf__))
+
+
+     __attribute__ ((__nonnull__ (2))) __attribute__((__warning__ ("ptsname_r called with buflen bigger than " "size of buf")))
+                   ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) int
+__attribute__ ((__nothrow__ , __leaf__)) ptsname_r (int __fd, char *__buf, size_t __buflen)
+{
+  if (__builtin_object_size (__buf, 2 > 1) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__buflen))
+ return __ptsname_r_chk (__fd, __buf, __buflen, __builtin_object_size (__buf, 2 > 1));
+      if (__buflen > __builtin_object_size (__buf, 2 > 1))
+ return __ptsname_r_chk_warn (__fd, __buf, __buflen, __builtin_object_size (__buf, 2 > 1));
+    }
+  return __ptsname_r_alias (__fd, __buf, __buflen);
+}
+
+
+extern int __wctomb_chk (char *__s, wchar_t __wchar, size_t __buflen)
+  __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+extern int __wctomb_alias (char *__s, wchar_t __wchar) __asm__ ("" "wctomb") __attribute__ ((__nothrow__ , __leaf__))
+              __attribute__ ((__warn_unused_result__));
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) __attribute__ ((__warn_unused_result__)) int
+__attribute__ ((__nothrow__ , __leaf__)) wctomb (char *__s, wchar_t __wchar)
+{
+
+
+
+
+
+
+
+  if (__builtin_object_size (__s, 2 > 1) != (size_t) -1 && 16 > __builtin_object_size (__s, 2 > 1))
+    return __wctomb_chk (__s, __wchar, __builtin_object_size (__s, 2 > 1));
+  return __wctomb_alias (__s, __wchar);
+}
+
+
+extern size_t __mbstowcs_chk (wchar_t *__restrict __dst,
+         const char *__restrict __src,
+         size_t __len, size_t __dstlen) __attribute__ ((__nothrow__ , __leaf__));
+extern size_t __mbstowcs_alias (wchar_t *__restrict __dst, const char *__restrict __src, size_t __len) __asm__ ("" "mbstowcs") __attribute__ ((__nothrow__ , __leaf__))
+
+
+                                  ;
+extern size_t __mbstowcs_chk_warn (wchar_t *__restrict __dst, const char *__restrict __src, size_t __len, size_t __dstlen) __asm__ ("" "__mbstowcs_chk") __attribute__ ((__nothrow__ , __leaf__))
+
+
+
+     __attribute__((__warning__ ("mbstowcs called with dst buffer smaller than len " "* sizeof (wchar_t)")))
+                        ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) size_t
+__attribute__ ((__nothrow__ , __leaf__)) mbstowcs (wchar_t *__restrict __dst, const char *__restrict __src, size_t __len)
+
+{
+  if (__builtin_object_size (__dst, 2 > 1) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__len))
+ return __mbstowcs_chk (__dst, __src, __len,
+          __builtin_object_size (__dst, 2 > 1) / sizeof (wchar_t));
+
+      if (__len > __builtin_object_size (__dst, 2 > 1) / sizeof (wchar_t))
+ return __mbstowcs_chk_warn (__dst, __src, __len,
+         __builtin_object_size (__dst, 2 > 1) / sizeof (wchar_t));
+    }
+  return __mbstowcs_alias (__dst, __src, __len);
+}
+
+
+extern size_t __wcstombs_chk (char *__restrict __dst,
+         const wchar_t *__restrict __src,
+         size_t __len, size_t __dstlen) __attribute__ ((__nothrow__ , __leaf__));
+extern size_t __wcstombs_alias (char *__restrict __dst, const wchar_t *__restrict __src, size_t __len) __asm__ ("" "wcstombs") __attribute__ ((__nothrow__ , __leaf__))
+
+
+                                  ;
+extern size_t __wcstombs_chk_warn (char *__restrict __dst, const wchar_t *__restrict __src, size_t __len, size_t __dstlen) __asm__ ("" "__wcstombs_chk") __attribute__ ((__nothrow__ , __leaf__))
+
+
+
+     __attribute__((__warning__ ("wcstombs called with dst buffer smaller than len")));
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) size_t
+__attribute__ ((__nothrow__ , __leaf__)) wcstombs (char *__restrict __dst, const wchar_t *__restrict __src, size_t __len)
+
+{
+  if (__builtin_object_size (__dst, 2 > 1) != (size_t) -1)
+    {
+      if (!__builtin_constant_p (__len))
+ return __wcstombs_chk (__dst, __src, __len, __builtin_object_size (__dst, 2 > 1));
+      if (__len > __builtin_object_size (__dst, 2 > 1))
+ return __wcstombs_chk_warn (__dst, __src, __len, __builtin_object_size (__dst, 2 > 1));
+    }
+  return __wcstombs_alias (__dst, __src, __len);
+}
+# 956 "/usr/include/stdlib.h" 2 3 4
+# 964 "/usr/include/stdlib.h" 3 4
+
+# 60 "vcc_compile.c" 2
+# 1 "/usr/include/string.h" 1 3 4
+# 27 "/usr/include/string.h" 3 4
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h" 1 3 4
+# 33 "/usr/include/string.h" 2 3 4
+
+
+
+
+
+
+
+
+
+extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+       size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void *memmove (void *__dest, const void *__src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
+        int __c, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern void *memset (void *__s, int __c, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern int memcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 92 "/usr/include/string.h" 3 4
+extern void *memchr (const void *__s, int __c, size_t __n)
+      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+# 106 "/usr/include/string.h" 3 4
+extern void *rawmemchr (const void *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 117 "/usr/include/string.h" 3 4
+extern void *memrchr (const void *__s, int __c, size_t __n)
+      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncat (char *__restrict __dest, const char *__restrict __src,
+        size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcoll (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern size_t strxfrm (char *__restrict __dest,
+         const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+# 162 "/usr/include/string.h" 3 4
+extern int strcoll_l (const char *__s1, const char *__s2, __locale_t __l)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n,
+    __locale_t __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
+
+
+
+
+
+extern char *strdup (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern char *strndup (const char *__string, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+# 207 "/usr/include/string.h" 3 4
+
+# 232 "/usr/include/string.h" 3 4
+extern char *strchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 259 "/usr/include/string.h" 3 4
+extern char *strrchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+# 273 "/usr/include/string.h" 3 4
+extern char *strchrnul (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern size_t strcspn (const char *__s, const char *__reject)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern size_t strspn (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 311 "/usr/include/string.h" 3 4
+extern char *strpbrk (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 338 "/usr/include/string.h" 3 4
+extern char *strstr (const char *__haystack, const char *__needle)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+extern char *__strtok_r (char *__restrict __s,
+    const char *__restrict __delim,
+    char **__restrict __save_ptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+
+extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
+         char **__restrict __save_ptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+# 369 "/usr/include/string.h" 3 4
+extern char *strcasestr (const char *__haystack, const char *__needle)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+
+extern void *memmem (const void *__haystack, size_t __haystacklen,
+       const void *__needle, size_t __needlelen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 3)));
+
+
+
+extern void *__mempcpy (void *__restrict __dest,
+   const void *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern void *mempcpy (void *__restrict __dest,
+        const void *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern size_t strlen (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern size_t strnlen (const char *__string, size_t __maxlen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern char *strerror (int __errnum) __attribute__ ((__nothrow__ , __leaf__));
+
+# 434 "/usr/include/string.h" 3 4
+extern char *strerror_r (int __errnum, char *__buf, size_t __buflen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) __attribute__ ((__warn_unused_result__));
+
+
+
+
+
+extern char *strerror_l (int __errnum, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern void __bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern void bcopy (const void *__src, void *__dest, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern int bcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 485 "/usr/include/string.h" 3 4
+extern char *index (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 513 "/usr/include/string.h" 3 4
+extern char *rindex (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern int ffs (int __i) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+
+
+extern int ffsl (long int __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+__extension__ extern int ffsll (long long int __ll)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+
+
+extern int strcasecmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+extern int strcasecmp_l (const char *__s1, const char *__s2,
+    __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+extern int strncasecmp_l (const char *__s1, const char *__s2,
+     size_t __n, __locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
+
+
+
+
+
+extern char *strsep (char **__restrict __stringp,
+       const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strsignal (int __sig) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern char *__stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern char *__stpncpy (char *__restrict __dest,
+   const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern int strverscmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern char *strfry (char *__string) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern void *memfrob (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 602 "/usr/include/string.h" 3 4
+extern char *basename (const char *__filename) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 630 "/usr/include/string.h" 3 4
+# 1 "/usr/include/bits/string.h" 1 3 4
+# 631 "/usr/include/string.h" 2 3 4
+
+
+# 1 "/usr/include/bits/string2.h" 1 3 4
+# 393 "/usr/include/bits/string2.h" 3 4
+extern void *__rawmemchr (const void *__s, int __c);
+# 968 "/usr/include/bits/string2.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strcspn_c1 (const char *__s, int __reject);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strcspn_c1 (const char *__s, int __reject)
+{
+  register size_t __result = 0;
+  while (__s[__result] != '\0' && __s[__result] != __reject)
+    ++__result;
+  return __result;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strcspn_c2 (const char *__s, int __reject1,
+         int __reject2);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strcspn_c2 (const char *__s, int __reject1, int __reject2)
+{
+  register size_t __result = 0;
+  while (__s[__result] != '\0' && __s[__result] != __reject1
+  && __s[__result] != __reject2)
+    ++__result;
+  return __result;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strcspn_c3 (const char *__s, int __reject1,
+         int __reject2, int __reject3);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strcspn_c3 (const char *__s, int __reject1, int __reject2,
+       int __reject3)
+{
+  register size_t __result = 0;
+  while (__s[__result] != '\0' && __s[__result] != __reject1
+  && __s[__result] != __reject2 && __s[__result] != __reject3)
+    ++__result;
+  return __result;
+}
+# 1044 "/usr/include/bits/string2.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strspn_c1 (const char *__s, int __accept);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strspn_c1 (const char *__s, int __accept)
+{
+  register size_t __result = 0;
+
+  while (__s[__result] == __accept)
+    ++__result;
+  return __result;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strspn_c2 (const char *__s, int __accept1,
+        int __accept2);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strspn_c2 (const char *__s, int __accept1, int __accept2)
+{
+  register size_t __result = 0;
+
+  while (__s[__result] == __accept1 || __s[__result] == __accept2)
+    ++__result;
+  return __result;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) size_t __strspn_c3 (const char *__s, int __accept1,
+        int __accept2, int __accept3);
+extern __inline __attribute__ ((__gnu_inline__)) size_t
+__strspn_c3 (const char *__s, int __accept1, int __accept2, int __accept3)
+{
+  register size_t __result = 0;
+
+  while (__s[__result] == __accept1 || __s[__result] == __accept2
+  || __s[__result] == __accept3)
+    ++__result;
+  return __result;
+}
+# 1120 "/usr/include/bits/string2.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) char *__strpbrk_c2 (const char *__s, int __accept1,
+        int __accept2);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strpbrk_c2 (const char *__s, int __accept1, int __accept2)
+{
+
+  while (*__s != '\0' && *__s != __accept1 && *__s != __accept2)
+    ++__s;
+  return *__s == '\0' ? ((void *)0) : (char *) (size_t) __s;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) char *__strpbrk_c3 (const char *__s, int __accept1,
+        int __accept2, int __accept3);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strpbrk_c3 (const char *__s, int __accept1, int __accept2, int __accept3)
+{
+
+  while (*__s != '\0' && *__s != __accept1 && *__s != __accept2
+  && *__s != __accept3)
+    ++__s;
+  return *__s == '\0' ? ((void *)0) : (char *) (size_t) __s;
+}
+# 1170 "/usr/include/bits/string2.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) char *__strtok_r_1c (char *__s, char __sep, char **__nextp);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strtok_r_1c (char *__s, char __sep, char **__nextp)
+{
+  char *__result;
+  if (__s == ((void *)0))
+    __s = *__nextp;
+  while (*__s == __sep)
+    ++__s;
+  __result = ((void *)0);
+  if (*__s != '\0')
+    {
+      __result = __s++;
+      while (*__s != '\0')
+ if (*__s++ == __sep)
+   {
+     __s[-1] = '\0';
+     break;
+   }
+    }
+  *__nextp = __s;
+  return __result;
+}
+# 1202 "/usr/include/bits/string2.h" 3 4
+extern char *__strsep_g (char **__stringp, const char *__delim);
+# 1220 "/usr/include/bits/string2.h" 3 4
+extern __inline __attribute__ ((__gnu_inline__)) char *__strsep_1c (char **__s, char __reject);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strsep_1c (char **__s, char __reject)
+{
+  register char *__retval = *__s;
+  if (__retval != ((void *)0) && (*__s = (__extension__ (__builtin_constant_p (__reject) && !__builtin_constant_p (__retval) && (__reject) == '\0' ? (char *) __rawmemchr (__retval, __reject) : __builtin_strchr (__retval, __reject)))) != ((void *)0))
+    *(*__s)++ = '\0';
+  return __retval;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) char *__strsep_2c (char **__s, char __reject1, char __reject2);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strsep_2c (char **__s, char __reject1, char __reject2)
+{
+  register char *__retval = *__s;
+  if (__retval != ((void *)0))
+    {
+      register char *__cp = __retval;
+      while (1)
+ {
+   if (*__cp == '\0')
+     {
+       __cp = ((void *)0);
+   break;
+     }
+   if (*__cp == __reject1 || *__cp == __reject2)
+     {
+       *__cp++ = '\0';
+       break;
+     }
+   ++__cp;
+ }
+      *__s = __cp;
+    }
+  return __retval;
+}
+
+extern __inline __attribute__ ((__gnu_inline__)) char *__strsep_3c (char **__s, char __reject1, char __reject2,
+       char __reject3);
+extern __inline __attribute__ ((__gnu_inline__)) char *
+__strsep_3c (char **__s, char __reject1, char __reject2, char __reject3)
+{
+  register char *__retval = *__s;
+  if (__retval != ((void *)0))
+    {
+      register char *__cp = __retval;
+      while (1)
+ {
+   if (*__cp == '\0')
+     {
+       __cp = ((void *)0);
+   break;
+     }
+   if (*__cp == __reject1 || *__cp == __reject2 || *__cp == __reject3)
+     {
+       *__cp++ = '\0';
+       break;
+     }
+   ++__cp;
+ }
+      *__s = __cp;
+    }
+  return __retval;
+}
+# 1301 "/usr/include/bits/string2.h" 3 4
+extern char *__strdup (const char *__string) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__));
+# 1320 "/usr/include/bits/string2.h" 3 4
+extern char *__strndup (const char *__string, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__));
+# 634 "/usr/include/string.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/bits/string3.h" 1 3 4
+# 22 "/usr/include/bits/string3.h" 3 4
+extern void __warn_memset_zero_len (void) __attribute__((__warning__ ("memset used with constant zero length parameter; this could be due to transposed parameters")))
+                                                                                                   ;
+# 47 "/usr/include/bits/string3.h" 3 4
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void *
+__attribute__ ((__nothrow__ , __leaf__)) memcpy (void *__restrict __dest, const void *__restrict __src, size_t __len)
+
+{
+  return __builtin___memcpy_chk (__dest, __src, __len, __builtin_object_size (__dest, 0));
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void *
+__attribute__ ((__nothrow__ , __leaf__)) memmove (void *__dest, const void *__src, size_t __len)
+{
+  return __builtin___memmove_chk (__dest, __src, __len, __builtin_object_size (__dest, 0));
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void *
+__attribute__ ((__nothrow__ , __leaf__)) mempcpy (void *__restrict __dest, const void *__restrict __src, size_t __len)
+
+{
+  return __builtin___mempcpy_chk (__dest, __src, __len, __builtin_object_size (__dest, 0));
+}
+# 75 "/usr/include/bits/string3.h" 3 4
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void *
+__attribute__ ((__nothrow__ , __leaf__)) memset (void *__dest, int __ch, size_t __len)
+{
+  if (__builtin_constant_p (__len) && __len == 0
+      && (!__builtin_constant_p (__ch) || __ch != 0))
+    {
+      __warn_memset_zero_len ();
+      return __dest;
+    }
+  return __builtin___memset_chk (__dest, __ch, __len, __builtin_object_size (__dest, 0));
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void
+__attribute__ ((__nothrow__ , __leaf__)) bcopy (const void *__src, void *__dest, size_t __len)
+{
+  (void) __builtin___memmove_chk (__dest, __src, __len, __builtin_object_size (__dest, 0));
+}
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) void
+__attribute__ ((__nothrow__ , __leaf__)) bzero (void *__dest, size_t __len)
+{
+  (void) __builtin___memset_chk (__dest, '\0', __len, __builtin_object_size (__dest, 0));
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) strcpy (char *__restrict __dest, const char *__restrict __src)
+{
+  return __builtin___strcpy_chk (__dest, __src, __builtin_object_size (__dest, 2 > 1));
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) stpcpy (char *__restrict __dest, const char *__restrict __src)
+{
+  return __builtin___stpcpy_chk (__dest, __src, __builtin_object_size (__dest, 2 > 1));
+}
+
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) strncpy (char *__restrict __dest, const char *__restrict __src, size_t __len)
+
+{
+  return __builtin___strncpy_chk (__dest, __src, __len, __builtin_object_size (__dest, 2 > 1));
+}
+
+
+extern char *__stpncpy_chk (char *__dest, const char *__src, size_t __n,
+       size_t __destlen) __attribute__ ((__nothrow__ , __leaf__));
+extern char *__stpncpy_alias (char *__dest, const char *__src, size_t __n) __asm__ ("" "stpncpy") __attribute__ ((__nothrow__ , __leaf__))
+                                 ;
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) stpncpy (char *__dest, const char *__src, size_t __n)
+{
+  if (__builtin_object_size (__dest, 2 > 1) != (size_t) -1
+      && (!__builtin_constant_p (__n) || __n <= __builtin_object_size (__dest, 2 > 1)))
+    return __stpncpy_chk (__dest, __src, __n, __builtin_object_size (__dest, 2 > 1));
+  return __stpncpy_alias (__dest, __src, __n);
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) strcat (char *__restrict __dest, const char *__restrict __src)
+{
+  return __builtin___strcat_chk (__dest, __src, __builtin_object_size (__dest, 2 > 1));
+}
+
+
+extern __inline __attribute__ ((__always_inline__)) __attribute__ ((__gnu_inline__)) __attribute__ ((__artificial__)) char *
+__attribute__ ((__nothrow__ , __leaf__)) strncat (char *__restrict __dest, const char *__restrict __src, size_t __len)
+
+{
+  return __builtin___strncat_chk (__dest, __src, __len, __builtin_object_size (__dest, 2 > 1));
+}
+# 639 "/usr/include/string.h" 2 3 4
+
+
+
+
+# 61 "vcc_compile.c" 2
+
+# 1 "vcc_compile.h" 1
+# 34 "vcc_compile.h"
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 1 3 4
+# 9 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 3 4
+# 1 "/usr/include/stdint.h" 1 3 4
+# 26 "/usr/include/stdint.h" 3 4
+# 1 "/usr/include/bits/wchar.h" 1 3 4
+# 22 "/usr/include/bits/wchar.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 23 "/usr/include/bits/wchar.h" 2 3 4
+# 27 "/usr/include/stdint.h" 2 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 28 "/usr/include/stdint.h" 2 3 4
+# 48 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint8_t;
+typedef unsigned short int uint16_t;
+
+typedef unsigned int uint32_t;
+
+
+
+typedef unsigned long int uint64_t;
+# 65 "/usr/include/stdint.h" 3 4
+typedef signed char int_least8_t;
+typedef short int int_least16_t;
+typedef int int_least32_t;
+
+typedef long int int_least64_t;
+
+
+
+
+
+
+typedef unsigned char uint_least8_t;
+typedef unsigned short int uint_least16_t;
+typedef unsigned int uint_least32_t;
+
+typedef unsigned long int uint_least64_t;
+# 90 "/usr/include/stdint.h" 3 4
+typedef signed char int_fast8_t;
+
+typedef long int int_fast16_t;
+typedef long int int_fast32_t;
+typedef long int int_fast64_t;
+# 103 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint_fast8_t;
+
+typedef unsigned long int uint_fast16_t;
+typedef unsigned long int uint_fast32_t;
+typedef unsigned long int uint_fast64_t;
+# 119 "/usr/include/stdint.h" 3 4
+typedef long int intptr_t;
+
+
+typedef unsigned long int uintptr_t;
+# 134 "/usr/include/stdint.h" 3 4
+typedef long int intmax_t;
+typedef unsigned long int uintmax_t;
+# 10 "/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h" 2 3 4
+# 35 "vcc_compile.h" 2
+
+# 1 "../../include/miniobj.h" 1
+# 37 "vcc_compile.h" 2
+# 1 "../../include/vas.h" 1
+# 41 "../../include/vas.h"
+enum vas_e {
+ VAS_WRONG,
+ VAS_MISSING,
+ VAS_ASSERT,
+ VAS_INCOMPLETE,
+ VAS_VCL,
+};
+
+typedef void vas_f(const char *, const char *, int, const char *, enum vas_e);
+
+extern vas_f *VAS_Fail __attribute__((__noreturn__));
+# 38 "vcc_compile.h" 2
+# 1 "../../include/vcl.h" 1
+
+
+
+
+
+
+struct vrt_ctx;
+
+struct req;
+struct busyobj;
+struct ws;
+struct cli;
+struct worker;
+
+enum vcl_event_e {
+ VCL_EVENT_LOAD,
+ VCL_EVENT_WARM,
+ VCL_EVENT_USE,
+ VCL_EVENT_COLD,
+ VCL_EVENT_DISCARD,
+};
+
+typedef int vcl_event_f(const struct vrt_ctx *ctx, enum vcl_event_e);
+typedef int vcl_init_f(const struct vrt_ctx *ctx);
+typedef void vcl_fini_f(const struct vrt_ctx *ctx);
+typedef int vcl_func_f(const struct vrt_ctx *ctx);
+# 66 "../../include/vcl.h"
+struct VCL_conf {
+ unsigned magic;
+
+
+ struct director **default_director;
+ const struct vrt_backend_probe *default_probe;
+ unsigned nref;
+ struct vrt_ref *ref;
+
+ unsigned nsrc;
+ const char **srcname;
+ const char **srcbody;
+
+ vcl_event_f *event_vcl;
+ vcl_func_f *recv_func;
+ vcl_func_f *pipe_func;
+ vcl_func_f *pass_func;
+ vcl_func_f *hash_func;
+ vcl_func_f *purge_func;
+ vcl_func_f *miss_func;
+ vcl_func_f *hit_func;
+ vcl_func_f *deliver_func;
+ vcl_func_f *synth_func;
+ vcl_func_f *backend_fetch_func;
+ vcl_func_f *backend_response_func;
+ vcl_func_f *backend_error_func;
+ vcl_func_f *init_func;
+ vcl_func_f *fini_func;
+
+};
+# 39 "vcc_compile.h" 2
+# 1 "../../include/vdef.h" 1
+# 40 "vcc_compile.h" 2
+# 1 "../../include/vqueue.h" 1
+# 41 "vcc_compile.h" 2
+# 1 "../../include/vsb.h" 1
+# 37 "../../include/vsb.h"
+struct vsb {
+ unsigned magic;
+
+ int s_error;
+ char *s_buf;
+ ssize_t s_size;
+ ssize_t s_len;
+
+
+
+
+
+
+ int s_flags;
+ int s_indent;
+};
+
+
+
+
+
+
+
+struct vsb *VSB_new(struct vsb *, char *, int, int);
+
+
+void VSB_clear(struct vsb *);
+int VSB_bcat(struct vsb *, const void *, ssize_t);
+int VSB_cat(struct vsb *, const char *);
+int VSB_printf(struct vsb *, const char *, ...)
+ __attribute__((format(printf, 2, 3)));
+
+int VSB_vprintf(struct vsb *, const char *, va_list)
+ __attribute__((format(printf, 2, 0)));
+
+int VSB_putc(struct vsb *, int);
+int VSB_error(const struct vsb *);
+int VSB_finish(struct vsb *);
+char *VSB_data(const struct vsb *);
+ssize_t VSB_len(const struct vsb *);
+void VSB_delete(struct vsb *);
+
+void VSB_quote(struct vsb *s, const char *p, int len, int how);
+void VSB_indent(struct vsb *, int);
+# 42 "vcc_compile.h" 2
+
+
+# 1 "vcc_token_defs.h" 1
+# 45 "vcc_compile.h" 2
+
+
+
+
+
+struct vsb;
+struct token;
+struct sockaddr_storage;
+
+
+
+
+int vcc_isCid(const struct token *t);
+unsigned vcl_fixed_token(const char *p, const char **q);
+extern const char * const vcl_tnames[256];
+void vcl_output_lang_h(struct vsb *sb);
+
+
+
+
+
+struct acl_e;
+struct proc;
+struct expr;
+struct vcc;
+struct symbol;
+
+enum var_type {
+
+# 1 "../../include/tbl/vcc_types.h" 1
+
+
+
+
+
+
+BACKEND,
+BLOB,
+BOOL,
+BYTES,
+DURATION,
+ENUM,
+HEADER,
+HTTP,
+INT,
+IP,
+PROBE,
+REAL,
+STRING,
+STRING_LIST,
+TIME,
+VOID,
+# 75 "vcc_compile.h" 2
+
+};
+
+struct membit {
+ struct { struct membit *vtqe_next; struct membit **vtqe_prev; } list;
+ void *ptr;
+};
+
+struct source {
+ struct { struct source *vtqe_next; struct source **vtqe_prev; } list;
+ char *name;
+ const char *b;
+ const char *e;
+ unsigned idx;
+ char *freeit;
+};
+
+struct token {
+ unsigned tok;
+ const char *b;
+ const char *e;
+ struct source *src;
+ struct { struct token *vtqe_next; struct token **vtqe_prev; } list;
+ unsigned cnt;
+ char *dec;
+};
+
+enum symkind {
+
+# 1 "../../include/tbl/symbol_kind.h" 1
+# 31 "../../include/tbl/symbol_kind.h"
+SYM_NONE,
+SYM_VAR,
+SYM_FUNC,
+SYM_PROC,
+SYM_VMOD,
+SYM_ACL,
+SYM_SUB,
+SYM_BACKEND,
+SYM_PROBE,
+SYM_WILDCARD,
+SYM_OBJECT,
+SYM_METHOD,
+# 105 "vcc_compile.h" 2
+
+};
+
+typedef void sym_expr_t(struct vcc *tl, struct expr **,
+    const struct symbol *sym);
+typedef struct symbol *sym_wildcard_t(struct vcc *tl, const struct token *t,
+    const struct symbol *sym);
+
+struct symbol {
+ unsigned magic;
+
+ struct { struct symbol *vtqe_next; struct symbol **vtqe_prev; } list;
+
+ char *name;
+ unsigned nlen;
+ sym_wildcard_t *wildcard;
+ enum symkind kind;
+
+ const struct token *def_b, *def_e;
+
+ enum var_type fmt;
+
+ sym_expr_t *eval;
+ void *eval_priv;
+
+
+ struct proc *proc;
+ unsigned nref, ndef;
+
+
+ const char *cfunc;
+ const char *extra;
+ const char *args;
+
+
+ const struct var *var;
+ unsigned r_methods;
+};
+
+struct tokenhead { struct token *vtqh_first; struct token **vtqh_last; };
+
+struct inifin {
+ unsigned magic;
+
+ unsigned n;
+ struct vsb *ini;
+ struct vsb *fin;
+ struct vsb *event;
+ struct { struct inifin *vtqe_next; struct inifin **vtqe_prev; } list;
+};
+
+struct inifinhead { struct inifin *vtqh_first; struct inifin **vtqh_last; };
+
+struct vcc {
+ unsigned magic;
+
+
+
+ char *builtin_vcl;
+ char *vcl_dir;
+ char *vmod_dir;
+
+ const struct var *vars;
+ struct { struct symbol *vtqh_first; struct symbol **vtqh_last; } symbols;
+
+ struct inifinhead inifin;
+ unsigned ninifin;
+
+
+ struct tokenhead tokens;
+ struct { struct source *vtqh_first; struct source **vtqh_last; } sources;
+ struct { struct membit *vtqh_first; struct membit **vtqh_last; } membits;
+ unsigned nsources;
+ struct source *src;
+ struct token *t;
+ int indent;
+ int hindent;
+ unsigned cnt;
+
+ struct vsb *fc;
+ struct vsb *fh;
+ struct vsb *fb;
+
+
+ struct vsb *fm[15];
+ struct vsb *sb;
+ int err;
+ struct proc *curproc;
+ struct proc *mprocs[15];
+
+ struct { struct acl_e *vtqh_first; struct acl_e **vtqh_last; } acl;
+
+ int nprobe;
+
+ const char *default_director;
+ struct token *t_default_director;
+ const char *default_probe;
+
+ unsigned unique;
+
+ unsigned err_unref;
+ unsigned allow_inline_c;
+ unsigned unsafe_path;
+};
+
+struct var {
+ const char *name;
+ enum var_type fmt;
+ unsigned len;
+ const char *rname;
+ unsigned r_methods;
+ const char *lname;
+ unsigned w_methods;
+};
+
+struct method {
+ const char *name;
+ unsigned ret_bitmap;
+ unsigned bitval;
+};
+
+
+
+
+
+void vcc_ParseAcl(struct vcc *tl);
+void vcc_Acl_Hack(struct vcc *tl, char *b);
+
+
+int vcc_ParseAction(struct vcc *tl);
+
+
+
+struct fld_spec;
+
+void vcc_ParseProbe(struct vcc *tl);
+void vcc_ParseBackend(struct vcc *tl);
+struct fld_spec * vcc_FldSpec(struct vcc *tl, const char *first, ...);
+void vcc_IsField(struct vcc *tl, struct token **t, struct fld_spec *fs);
+void vcc_FieldsOk(struct vcc *tl, const struct fld_spec *fs);
+
+
+extern struct method method_tab[];
+struct inifin *New_IniFin(struct vcc *tl);
+# 257 "vcc_compile.h"
+void Fh(const struct vcc *tl, int indent, const char *fmt, ...)
+    __attribute__((format(printf, 3, 4)));
+void Fc(const struct vcc *tl, int indent, const char *fmt, ...)
+    __attribute__((format(printf, 3, 4)));
+void Fb(const struct vcc *tl, int indent, const char *fmt, ...)
+    __attribute__((format(printf, 3, 4)));
+void EncToken(struct vsb *sb, const struct token *t);
+int IsMethod(const struct token *t);
+void *TlAlloc(struct vcc *tl, unsigned len);
+char *TlDup(struct vcc *tl, const char *s);
+char *TlDupTok(struct vcc *tl, const struct token *tok);
+
+void EncString(struct vsb *sb, const char *b, const char *e, int mode);
+
+
+double vcc_DoubleVal(struct vcc *tl);
+void vcc_Duration(struct vcc *tl, double *);
+unsigned vcc_UintVal(struct vcc *tl);
+void vcc_Expr(struct vcc *tl, enum var_type typ);
+void vcc_Expr_Call(struct vcc *tl, const struct symbol *sym);
+void vcc_Expr_Init(struct vcc *tl);
+sym_expr_t vcc_Eval_Var;
+sym_expr_t vcc_Eval_SymFunc;
+void vcc_Eval_Func(struct vcc *tl, const char *cfunc, const char *extra,
+    const char *name, const char *args);
+sym_expr_t vcc_Eval_Backend;
+sym_expr_t vcc_Eval_Probe;
+
+
+extern const struct var vcc_vars[];
+
+
+void vcc_Parse(struct vcc *tl);
+
+
+sym_wildcard_t vcc_Stv_Wildcard;
+
+
+const char *vcc_regexp(struct vcc *tl);
+void Resolve_Sockaddr(struct vcc *tl, const char *host, const char *defport,
+    const char **ipv4, const char **ipv4_ascii, const char **ipv6,
+    const char **ipv6_ascii, const char **p_ascii, int maxips,
+    const struct token *t_err, const char *errid);
+
+
+struct symbol *VCC_AddSymbolStr(struct vcc *tl, const char *name, enum symkind);
+struct symbol *VCC_AddSymbolTok(struct vcc *tl, const struct token *t,
+    enum symkind kind);
+struct symbol *VCC_GetSymbolTok(struct vcc *tl, const struct token *tok,
+    enum symkind);
+struct symbol *VCC_FindSymbol(struct vcc *tl,
+    const struct token *t, enum symkind kind);
+const char * VCC_SymKind(struct vcc *tl, const struct symbol *s);
+typedef void symwalk_f(struct vcc *tl, const struct symbol *s);
+void VCC_WalkSymbols(struct vcc *tl, symwalk_f *func, enum symkind kind);
+
+
+void vcc_Coord(const struct vcc *tl, struct vsb *vsb,
+    const struct token *t);
+void vcc_ErrToken(const struct vcc *tl, const struct token *t);
+void vcc_ErrWhere(struct vcc *, const struct token *);
+void vcc_ErrWhere2(struct vcc *, const struct token *, const struct token *);
+
+void vcc__Expect(struct vcc *tl, unsigned tok, unsigned line);
+int vcc_IdIs(const struct token *t, const char *p);
+void vcc_ExpectCid(struct vcc *tl);
+void vcc_Lexer(struct vcc *tl, struct source *sp);
+void vcc_NextToken(struct vcc *tl);
+void vcc__ErrInternal(struct vcc *tl, const char *func,
+    unsigned line);
+void vcc_AddToken(struct vcc *tl, unsigned tok, const char *b,
+    const char *e);
+
+
+sym_wildcard_t vcc_Var_Wildcard;
+const struct var *vcc_FindVar(struct vcc *tl, const struct token *t,
+    int wr_access, const char *use);
+
+
+void vcc_ParseImport(struct vcc *tl);
+
+
+int vcc_AddDef(struct vcc *tl, const struct token *t, enum symkind type);
+void vcc_AddRef(struct vcc *tl, const struct token *t, enum symkind type);
+int vcc_CheckReferences(struct vcc *tl);
+
+void vcc_AddCall(struct vcc *tl, struct token *t);
+struct proc *vcc_AddProc(struct vcc *tl, struct token *t);
+void vcc_ProcAction(struct proc *p, unsigned action, struct token *t);
+int vcc_CheckAction(struct vcc *tl);
+void vcc_AddUses(struct vcc *tl, const struct token *t, unsigned mask,
+    const char *use);
+int vcc_CheckUses(struct vcc *tl);
+# 63 "vcc_compile.c" 2
+
+# 1 "../../include/libvcc.h" 1
+# 31 "../../include/libvcc.h"
+struct vcc;
+
+struct vcc *VCC_New(void);
+void VCC_Builtin_VCL(struct vcc *, const char *str);
+void VCC_VCL_dir(struct vcc *, const char *str);
+void VCC_VMOD_dir(struct vcc *, const char *str);
+void VCC_Err_Unref(struct vcc *tl, unsigned u);
+void VCC_Allow_InlineC(struct vcc *tl, unsigned u);
+void VCC_Unsafe_Path(struct vcc *tl, unsigned u);
+
+char *VCC_Compile(const struct vcc *, struct vsb *sb, const char *b);
+# 65 "vcc_compile.c" 2
+# 1 "../../include/vfil.h" 1
+# 32 "../../include/vfil.h"
+int seed_random(void);
+char *VFIL_readfile(const char *pfx, const char *fn, ssize_t *sz);
+char *VFIL_readfd(int fd, ssize_t *sz);
+int VFIL_nonblocking(int fd);
+int VFIL_fsinfo(int fd, unsigned *pbs, uintmax_t *size, uintmax_t *space);
+int VFIL_allocate(int fd, off_t size, int insist);
+# 66 "vcc_compile.c" 2
+
+struct method method_tab[] = {
+ { "none", 0U, 0},
+
+# 1 "../../include/tbl/vcl_returns.h" 1
+# 80 "../../include/tbl/vcl_returns.h"
+{ "vcl_""backend_error", ( (1U << 0) | (1U << 1) | (1U << 12) ), (1U << 12) },
+
+
+
+
+{ "vcl_""backend_fetch", ( (1U << 0) | (1U << 3) ), (1U << 10) },
+
+
+
+{ "vcl_""backend_response", ( (1U << 0) | (1U << 1) | (1U << 12) ), (1U << 11) },
+
+
+
+
+{ "vcl_""deliver", ( (1U << 1) | (1U << 11) | (1U << 13) ), (1U << 8) },
+
+
+
+
+{ "vcl_""fini", ( (1U << 7) ), (1U << 14) },
+
+
+{ "vcl_""hash", ( (1U << 5) ), (1U << 4) },
+
+
+{ "vcl_""hit", ( (1U << 1) | (1U << 3) | (1U << 6) | (1U << 8) | (1U << 11) | (1U << 13) ), (1U << 7) },
+
+
+
+
+
+
+
+{ "vcl_""init", ( (1U << 2) | (1U << 7) ), (1U << 13) },
+
+
+
+{ "vcl_""miss", ( (1U << 3) | (1U << 8) | (1U << 11) | (1U << 13) ), (1U << 6) },
+
+
+
+
+
+{ "vcl_""pass", ( (1U << 3) | (1U << 11) | (1U << 13) ), (1U << 3) },
+
+
+
+
+{ "vcl_""pipe", ( (1U << 9) | (1U << 13) ), (1U << 2) },
+
+
+
+{ "vcl_""purge", ( (1U << 11) | (1U << 13) ), (1U << 5) },
+
+
+
+{ "vcl_""recv", ( (1U << 4) | (1U << 8) | (1U << 9) | (1U << 10) | (1U << 13) ), (1U << 1) },
+
+
+
+
+
+
+{ "vcl_""synth", ( (1U << 1) | (1U << 11) ), (1U << 9) },
+# 71 "vcc_compile.c" 2
+
+ { ((void *)0), 0U, 0}
+};
+
+
 
 static void
 TlDoFree(struct vcc *tl, void *p)
 {
-	struct membit *mb;
+ struct membit *mb;
 
-	mb = calloc(sizeof *mb, 1);
-	assert(mb != NULL);
-	mb->ptr = p;
-	VTAILQ_INSERT_TAIL(&tl->membits, mb, list);
+ mb = calloc(sizeof *mb, 1);
+ do { if (!(mb != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 83, "mb != NULL", VAS_ASSERT); } } while (0);
+ mb->ptr = p;
+ do { (((mb))->list.vtqe_next) = ((void *)0); (mb)->list.vtqe_prev = (&tl->membits)->vtqh_last; *(&tl->membits)->vtqh_last = (mb); (&tl->membits)->vtqh_last = &(((mb))->list.vtqe_next); } while (0);
 }
 
 
 void *
 TlAlloc(struct vcc *tl, unsigned len)
 {
-	void *p;
+ void *p;
 
-	p = calloc(len, 1);
-	assert(p != NULL);
-	TlDoFree(tl, p);
-	return (p);
+ p = calloc(len, 1);
+ do { if (!(p != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 95, "p != NULL", VAS_ASSERT); } } while (0);
+ TlDoFree(tl, p);
+ return (p);
 }
 
 char *
 TlDup(struct vcc *tl, const char *s)
 {
-	char *p;
+ char *p;
 
-	p = TlAlloc(tl, strlen(s) + 1);
-	AN(p);
-	strcpy(p, s);
-	return (p);
+ p = TlAlloc(tl, strlen(s) + 1);
+ do { do { if (!((p) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 106, "(p) != 0", VAS_ASSERT); } } while (0); } while (0);
+ strcpy(p, s);
+ return (p);
 }
 
 char *
 TlDupTok(struct vcc *tl, const struct token *tok)
 {
-	char *p;
-	int i;
+ char *p;
+ int i;
 
-	i = tok->e - tok->b;
-	p = TlAlloc(tl, i + 1);
-	AN(p);
-	memcpy(p, tok->b, i);
-	p[i] = '\0';
-	return (p);
+ i = tok->e - tok->b;
+ p = TlAlloc(tl, i + 1);
+ do { do { if (!((p) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 119, "(p) != 0", VAS_ASSERT); } } while (0); } while (0);
+ memcpy(p, tok->b, i);
+ p[i] = '\0';
+ return (p);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 struct inifin *
 New_IniFin(struct vcc *tl)
 {
-	struct inifin *p;
+ struct inifin *p;
 
-	p = TlAlloc(tl, sizeof *p);
-	AN(p);
-	p->magic = INIFIN_MAGIC;
-	p->ini = VSB_new_auto();
-	p->fin = VSB_new_auto();
-	p->event = VSB_new_auto();
-	p->n = ++tl->ninifin;
-	VTAILQ_INSERT_TAIL(&tl->inifin, p, list);
-	return (p);
+ p = TlAlloc(tl, sizeof *p);
+ do { do { if (!((p) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 133, "(p) != 0", VAS_ASSERT); } } while (0); } while (0);
+ p->magic = 0x583c274c;
+ p->ini = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ p->fin = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ p->event = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ p->n = ++tl->ninifin;
+ do { (((p))->list.vtqe_next) = ((void *)0); (p)->list.vtqe_prev = (&tl->inifin)->vtqh_last; *(&tl->inifin)->vtqh_last = (p); (&tl->inifin)->vtqh_last = &(((p))->list.vtqe_next); } while (0);
+ return (p);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 int
 IsMethod(const struct token *t)
 {
-	struct method *m;
+ struct method *m;
 
-	assert(t->tok == ID);
-	for(m = method_tab; m->name != NULL; m++) {
-		if (vcc_IdIs(t, m->name))
-			return (m - method_tab);
-	}
-	if ((t->b[0] == 'v'|| t->b[0] == 'V') &&
-	    (t->b[1] == 'c'|| t->b[1] == 'C') &&
-	    (t->b[2] == 'l'|| t->b[2] == 'L'))
-		return (-2);
-	return (-1);
+ do { if (!(t->tok == 132)) { VAS_Fail(__func__, "vcc_compile.c", 150, "t->tok == ID", VAS_ASSERT); } } while (0);
+ for(m = method_tab; m->name != ((void *)0); m++) {
+  if (vcc_IdIs(t, m->name))
+   return (m - method_tab);
+ }
+ if ((t->b[0] == 'v'|| t->b[0] == 'V') &&
+     (t->b[1] == 'c'|| t->b[1] == 'C') &&
+     (t->b[2] == 'l'|| t->b[2] == 'L'))
+  return (-2);
+ return (-1);
 }
 
-/*--------------------------------------------------------------------
- * Printf output to the vsbs, possibly indented
- */
+
+
+
 
 void
 Fh(const struct vcc *tl, int indent, const char *fmt, ...)
 {
-	va_list ap;
+ va_list ap;
 
-	if (indent)
-		VSB_printf(tl->fh, "%*.*s", tl->hindent, tl->hindent, "");
-	va_start(ap, fmt);
-	VSB_vprintf(tl->fh, fmt, ap);
-	va_end(ap);
+ if (indent)
+  VSB_printf(tl->fh, "%*.*s", tl->hindent, tl->hindent, "");
+ __builtin_va_start(ap,fmt);
+ VSB_vprintf(tl->fh, fmt, ap);
+ __builtin_va_end(ap);
 }
 
 void
 Fb(const struct vcc *tl, int indent, const char *fmt, ...)
 {
-	va_list ap;
+ va_list ap;
 
-	assert(tl->fb != NULL);
-	if (indent)
-		VSB_printf(tl->fb, "%*.*s", tl->indent, tl->indent, "");
-	va_start(ap, fmt);
-	VSB_vprintf(tl->fb, fmt, ap);
-	va_end(ap);
+ do { if (!(tl->fb != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 183, "tl->fb != NULL", VAS_ASSERT); } } while (0);
+ if (indent)
+  VSB_printf(tl->fb, "%*.*s", tl->indent, tl->indent, "");
+ __builtin_va_start(ap,fmt);
+ VSB_vprintf(tl->fb, fmt, ap);
+ __builtin_va_end(ap);
 }
 
 void
 Fc(const struct vcc *tl, int indent, const char *fmt, ...)
 {
-	va_list ap;
+ va_list ap;
 
-	if (indent)
-		VSB_printf(tl->fc, "%*.*s", tl->indent, tl->indent, "");
-	va_start(ap, fmt);
-	VSB_vprintf(tl->fc, fmt, ap);
-	va_end(ap);
+ if (indent)
+  VSB_printf(tl->fc, "%*.*s", tl->indent, tl->indent, "");
+ __builtin_va_start(ap,fmt);
+ VSB_vprintf(tl->fc, fmt, ap);
+ __builtin_va_end(ap);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 void
 EncString(struct vsb *sb, const char *b, const char *e, int mode)
 {
 
-	if (e == NULL)
-		e = strchr(b, '\0');
+ if (e == ((void *)0))
+  e = (__extension__ (__builtin_constant_p ('\0') && !__builtin_constant_p (b) && ('\0') == '\0' ? (char *) __rawmemchr (b, '\0') : __builtin_strchr (b, '\0')));
 
-	VSB_cat(sb, "\"");
-	for (; b < e; b++) {
-		switch (*b) {
-		case '?':	// Trigraphs
-		case '\\':
-		case '"':
-			VSB_printf(sb, "\\%c", *b);
-			break;
-		case '\n':
-			VSB_printf(sb, "\\n");
-			if (mode)
-				VSB_printf(sb, "\"\n\t\"");
-			break;
-		case '\t': VSB_printf(sb, "\\t"); break;
-		case '\r': VSB_printf(sb, "\\r"); break;
-		case ' ': VSB_printf(sb, " "); break;
-		default:
-			if (isgraph(*b))
-				VSB_printf(sb, "%c", *b);
-			else
-				VSB_printf(sb, "\\%03o", (uint8_t)*b);
-			break;
-		}
-	}
-	VSB_cat(sb, "\"");
+ VSB_cat(sb, "\"");
+ for (; b < e; b++) {
+  switch (*b) {
+  case '?':
+  case '\\':
+  case '"':
+   VSB_printf(sb, "\\%c", *b);
+   break;
+  case '\n':
+   VSB_printf(sb, "\\n");
+   if (mode)
+    VSB_printf(sb, "\"\n\t\"");
+   break;
+  case '\t': VSB_printf(sb, "\\t"); break;
+  case '\r': VSB_printf(sb, "\\r"); break;
+  case ' ': VSB_printf(sb, " "); break;
+  default:
+   if (((*__ctype_b_loc ())[(int) ((*b))] & (unsigned short int) _ISgraph))
+    VSB_printf(sb, "%c", *b);
+   else
+    VSB_printf(sb, "\\%03o", (uint8_t)*b);
+   break;
+  }
+ }
+ VSB_cat(sb, "\"");
 }
 
 void
 EncToken(struct vsb *sb, const struct token *t)
 {
 
-	assert(t->tok == CSTR);
-	EncString(sb, t->dec, NULL, 1);
+ do { if (!(t->tok == 130)) { VAS_Fail(__func__, "vcc_compile.c", 243, "t->tok == CSTR", VAS_ASSERT); } } while (0);
+ EncString(sb, t->dec, ((void *)0), 1);
 }
 
-/*--------------------------------------------------------------------
- * Output the location/profiling table.  For each counted token, we
- * record source+line+charpos for the first character in the token.
- */
+
+
+
+
 
 static void
 EmitCoordinates(const struct vcc *tl, struct vsb *vsb)
 {
-	struct token *t;
-	unsigned lin, pos;
-	struct source *sp;
-	const char *p;
+ struct token *t;
+ unsigned lin, pos;
+ struct source *sp;
+ const char *p;
 
-	VSB_printf(vsb, "/* ---===### Source Code ###===---*/\n");
+ VSB_printf(vsb, "/* ---===### Source Code ###===---*/\n");
 
-	VSB_printf(vsb, "\n#define VGC_NSRCS %u\n", tl->nsources);
+ VSB_printf(vsb, "\n#define VGC_NSRCS %u\n", tl->nsources);
 
-	VSB_printf(vsb, "\nstatic const char *srcname[VGC_NSRCS] = {\n");
-	VTAILQ_FOREACH(sp, &tl->sources, list) {
-		VSB_printf(vsb, "\t");
-		EncString(vsb, sp->name, NULL, 0);
-		VSB_printf(vsb, ",\n");
-	}
-	VSB_printf(vsb, "};\n");
+ VSB_printf(vsb, "\nstatic const char *srcname[VGC_NSRCS] = {\n");
+ for ((sp) = (((&tl->sources))->vtqh_first); (sp); (sp) = (((sp))->list.vtqe_next)) {
+  VSB_printf(vsb, "\t");
+  EncString(vsb, sp->name, ((void *)0), 0);
+  VSB_printf(vsb, ",\n");
+ }
+ VSB_printf(vsb, "};\n");
 
-	VSB_printf(vsb, "\nstatic const char *srcbody[%u] = {\n", tl->nsources);
-	VTAILQ_FOREACH(sp, &tl->sources, list) {
-		VSB_printf(vsb, "    /* ");
-		EncString(vsb, sp->name, NULL, 0);
-		VSB_printf(vsb, "*/\n");
-		VSB_printf(vsb, "\t");
-		EncString(vsb, sp->b, sp->e, 1);
-		VSB_printf(vsb, ",\n");
-	}
-	VSB_printf(vsb, "};\n\n");
+ VSB_printf(vsb, "\nstatic const char *srcbody[%u] = {\n", tl->nsources);
+ for ((sp) = (((&tl->sources))->vtqh_first); (sp); (sp) = (((sp))->list.vtqe_next)) {
+  VSB_printf(vsb, "    /* ");
+  EncString(vsb, sp->name, ((void *)0), 0);
+  VSB_printf(vsb, "*/\n");
+  VSB_printf(vsb, "\t");
+  EncString(vsb, sp->b, sp->e, 1);
+  VSB_printf(vsb, ",\n");
+ }
+ VSB_printf(vsb, "};\n\n");
 
-	VSB_printf(vsb, "/* ---===### Location Counters ###===---*/\n");
+ VSB_printf(vsb, "/* ---===### Location Counters ###===---*/\n");
 
-	VSB_printf(vsb, "\n#define VGC_NREFS %u\n", tl->cnt + 1);
+ VSB_printf(vsb, "\n#define VGC_NREFS %u\n", tl->cnt + 1);
 
-	VSB_printf(vsb, "\nstatic struct vrt_ref VGC_ref[VGC_NREFS] = {\n");
-	lin = 1;
-	pos = 0;
-	sp = 0;
-	p = NULL;
-	VTAILQ_FOREACH(t, &tl->tokens, list) {
-		if (t->cnt == 0)
-			continue;
-		assert(t->src != NULL);
-		if (t->src != sp) {
-			lin = 1;
-			pos = 0;
-			sp = t->src;
-			p = sp->b;
-		}
-		assert(sp != NULL);
-		assert(p != NULL);
-		for (;p < t->b; p++) {
-			if (*p == '\n') {
-				lin++;
-				pos = 0;
-			} else if (*p == '\t') {
-				pos &= ~7;
-				pos += 8;
-			} else
-				pos++;
+ VSB_printf(vsb, "\nstatic struct vrt_ref VGC_ref[VGC_NREFS] = {\n");
+ lin = 1;
+ pos = 0;
+ sp = 0;
+ p = ((void *)0);
+ for ((t) = (((&tl->tokens))->vtqh_first); (t); (t) = (((t))->list.vtqe_next)) {
+  if (t->cnt == 0)
+   continue;
+  do { if (!(t->src != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 295, "t->src != NULL", VAS_ASSERT); } } while (0);
+  if (t->src != sp) {
+   lin = 1;
+   pos = 0;
+   sp = t->src;
+   p = sp->b;
+  }
+  do { if (!(sp != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 302, "sp != NULL", VAS_ASSERT); } } while (0);
+  do { if (!(p != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 303, "p != NULL", VAS_ASSERT); } } while (0);
+  for (;p < t->b; p++) {
+   if (*p == '\n') {
+    lin++;
+    pos = 0;
+   } else if (*p == '\t') {
+    pos &= ~7;
+    pos += 8;
+   } else
+    pos++;
 
-		}
-		VSB_printf(vsb, "  [%3u] = { %u, %8tu, %4u, %3u, ",
-		    t->cnt, sp->idx, t->b - sp->b, lin, pos + 1);
-		if (t->tok == CSRC)
-			VSB_printf(vsb, " \"C{\"},\n");
-		else
-			VSB_printf(vsb, " \"%.*s\" },\n", PF(t));
-	}
-	VSB_printf(vsb, "};\n\n");
+  }
+  VSB_printf(vsb, "  [%3u] = { %u, %8tu, %4u, %3u, ",
+      t->cnt, sp->idx, t->b - sp->b, lin, pos + 1);
+  if (t->tok == 129)
+   VSB_printf(vsb, " \"C{\"},\n");
+  else
+   VSB_printf(vsb, " \"%.*s\" },\n", (int)((t)->e - (t)->b), (t)->b);
+ }
+ VSB_printf(vsb, "};\n\n");
 }
-
-/*--------------------------------------------------------------------
- * Init/Fini/Event
- *
- * We call Fini-s in the opposite order of init-s.
- * Other events are called in same order as init-s, no matter which
- * event it might be.
- */
-
+# 333 "vcc_compile.c"
 static void
 EmitInitFini(const struct vcc *tl)
 {
-	struct inifin *p;
+ struct inifin *p;
 
-	Fh(tl, 0, "\nstatic unsigned vgc_inistep;\n");
+ Fh(tl, 0, "\nstatic unsigned vgc_inistep;\n");
 
-	/*
-	 * INIT
-	 */
-	Fc(tl, 0, "\nstatic int\nVGC_Load(VRT_CTX)\n{\n\n");
-	Fc(tl, 0, "\tvgc_inistep = 0;\n\n");
-	VTAILQ_FOREACH(p, &tl->inifin, list) {
-		AZ(VSB_finish(p->ini));
-		assert(p->n > 0);
-		if (VSB_len(p->ini))
-			Fc(tl, 0, "\t/* %u */\n%s\n", p->n, VSB_data(p->ini));
-		Fc(tl, 0, "\tvgc_inistep = %u;\n\n", p->n);
-		VSB_delete(p->ini);
-	}
 
-	Fc(tl, 0, "\t(void)VGC_function_vcl_init(ctx);\n");
-	Fc(tl, 0, "\treturn(*ctx->handling == VCL_RET_OK ? 0: -1);\n");
-	Fc(tl, 0, "}\n");
 
-	/*
-	 * FINI
-	 */
-	Fc(tl, 0, "\nstatic int\nVGC_Discard(VRT_CTX)\n{\n\n");
 
-	Fc(tl, 0, "\t(void)VGC_function_vcl_fini(ctx);\n\n");
-	VTAILQ_FOREACH_REVERSE(p, &tl->inifin, inifinhead, list) {
-		AZ(VSB_finish(p->fin));
-		if (VSB_len(p->fin)) {
-			Fc(tl, 0, "\t/* %u */\n", p->n);
-			Fc(tl, 0, "\tif (vgc_inistep >= %u) {\n", p->n);
-			Fc(tl, 0, "%s\n", VSB_data(p->fin));
-			Fc(tl, 0, "\t}\n\n");
-		}
-		VSB_delete(p->fin);
-	}
+ Fc(tl, 0, "\nstatic int\nVGC_Load(VRT_CTX)\n{\n\n");
+ Fc(tl, 0, "\tvgc_inistep = 0;\n\n");
+ for ((p) = (((&tl->inifin))->vtqh_first); (p); (p) = (((p))->list.vtqe_next)) {
+  do { do { if (!((VSB_finish(p->ini)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 346, "(VSB_finish(p->ini)) == 0", VAS_ASSERT); } } while (0); } while (0);
+  do { if (!(p->n > 0)) { VAS_Fail(__func__, "vcc_compile.c", 347, "p->n > 0", VAS_ASSERT); } } while (0);
+  if (VSB_len(p->ini))
+   Fc(tl, 0, "\t/* %u */\n%s\n", p->n, VSB_data(p->ini));
+  Fc(tl, 0, "\tvgc_inistep = %u;\n\n", p->n);
+  VSB_delete(p->ini);
+ }
 
-	Fc(tl, 0, "\treturn(0);\n");
-	Fc(tl, 0, "}\n");
+ Fc(tl, 0, "\t(void)VGC_function_vcl_init(ctx);\n");
+ Fc(tl, 0, "\treturn(*ctx->handling == VCL_RET_OK ? 0: -1);\n");
+ Fc(tl, 0, "}\n");
 
-	/*
-	 * EVENTS
-	 */
-	Fc(tl, 0, "\nstatic int\n");
-	Fc(tl, 0, "VGC_Event(VRT_CTX, enum vcl_event_e ev)\n");
-	Fc(tl, 0, "{\n");
-	Fc(tl, 0, "\tif (ev == VCL_EVENT_LOAD)\n");
-	Fc(tl, 0, "\t\treturn(VGC_Load(ctx));\n");
-	Fc(tl, 0, "\tif (ev == VCL_EVENT_DISCARD)\n");
-	Fc(tl, 0, "\t\treturn(VGC_Discard(ctx));\n");
-	Fc(tl, 0, "\n");
-	VTAILQ_FOREACH(p, &tl->inifin, list) {
-		AZ(VSB_finish(p->event));
-		if (VSB_len(p->event))
-			Fc(tl, 0, "\t/* %u */\n%s\n", p->n, VSB_data(p->event));
-		VSB_delete(p->event);
-	}
-	Fc(tl, 0, "\treturn (0);\n");
-	Fc(tl, 0, "}\n");
+
+
+
+ Fc(tl, 0, "\nstatic int\nVGC_Discard(VRT_CTX)\n{\n\n");
+
+ Fc(tl, 0, "\t(void)VGC_function_vcl_fini(ctx);\n\n");
+ for ((p) = (*(((struct inifinhead *)(((&tl->inifin))->vtqh_last))->vtqh_last)); (p); (p) = (*(((struct inifinhead *)(((p))->list.vtqe_prev))->vtqh_last))) {
+  do { do { if (!((VSB_finish(p->fin)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 365, "(VSB_finish(p->fin)) == 0", VAS_ASSERT); } } while (0); } while (0);
+  if (VSB_len(p->fin)) {
+   Fc(tl, 0, "\t/* %u */\n", p->n);
+   Fc(tl, 0, "\tif (vgc_inistep >= %u) {\n", p->n);
+   Fc(tl, 0, "%s\n", VSB_data(p->fin));
+   Fc(tl, 0, "\t}\n\n");
+  }
+  VSB_delete(p->fin);
+ }
+
+ Fc(tl, 0, "\treturn(0);\n");
+ Fc(tl, 0, "}\n");
+
+
+
+
+ Fc(tl, 0, "\nstatic int\n");
+ Fc(tl, 0, "VGC_Event(VRT_CTX, enum vcl_event_e ev)\n");
+ Fc(tl, 0, "{\n");
+ Fc(tl, 0, "\tif (ev == VCL_EVENT_LOAD)\n");
+ Fc(tl, 0, "\t\treturn(VGC_Load(ctx));\n");
+ Fc(tl, 0, "\tif (ev == VCL_EVENT_DISCARD)\n");
+ Fc(tl, 0, "\t\treturn(VGC_Discard(ctx));\n");
+ Fc(tl, 0, "\n");
+ for ((p) = (((&tl->inifin))->vtqh_first); (p); (p) = (((p))->list.vtqe_next)) {
+  do { do { if (!((VSB_finish(p->event)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 390, "(VSB_finish(p->event)) == 0", VAS_ASSERT); } } while (0); } while (0);
+  if (VSB_len(p->event))
+   Fc(tl, 0, "\t/* %u */\n%s\n", p->n, VSB_data(p->event));
+  VSB_delete(p->event);
+ }
+ Fc(tl, 0, "\treturn (0);\n");
+ Fc(tl, 0, "}\n");
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static void
 EmitStruct(const struct vcc *tl)
 {
-	Fc(tl, 0, "\nconst struct VCL_conf VCL_conf = {\n");
-	Fc(tl, 0, "\t.magic = VCL_CONF_MAGIC,\n");
-	Fc(tl, 0, "\t.event_vcl = VGC_Event,\n");
-	Fc(tl, 0, "\t.default_director = &%s,\n", tl->default_director);
-	if (tl->default_probe != NULL)
-		Fc(tl, 0, "\t.default_probe = &%s,\n", tl->default_probe);
-	Fc(tl, 0, "\t.ref = VGC_ref,\n");
-	Fc(tl, 0, "\t.nref = VGC_NREFS,\n");
-	Fc(tl, 0, "\t.nsrc = VGC_NSRCS,\n");
-	Fc(tl, 0, "\t.srcname = srcname,\n");
-	Fc(tl, 0, "\t.srcbody = srcbody,\n");
-#define VCL_MET_MAC(l,u,b) \
-	Fc(tl, 0, "\t." #l "_func = VGC_function_vcl_" #l ",\n");
-#include "tbl/vcl_returns.h"
-#undef VCL_MET_MAC
-	Fc(tl, 0, "};\n");
+ Fc(tl, 0, "\nconst struct VCL_conf VCL_conf = {\n");
+ Fc(tl, 0, "\t.magic = VCL_CONF_MAGIC,\n");
+ Fc(tl, 0, "\t.event_vcl = VGC_Event,\n");
+ Fc(tl, 0, "\t.default_director = &%s,\n", tl->default_director);
+ if (tl->default_probe != ((void *)0))
+  Fc(tl, 0, "\t.default_probe = &%s,\n", tl->default_probe);
+ Fc(tl, 0, "\t.ref = VGC_ref,\n");
+ Fc(tl, 0, "\t.nref = VGC_NREFS,\n");
+ Fc(tl, 0, "\t.nsrc = VGC_NSRCS,\n");
+ Fc(tl, 0, "\t.srcname = srcname,\n");
+ Fc(tl, 0, "\t.srcbody = srcbody,\n");
+
+
+# 1 "../../include/tbl/vcl_returns.h" 1
+# 80 "../../include/tbl/vcl_returns.h"
+Fc(tl, 0, "\t." "backend_error" "_func = VGC_function_vcl_" "backend_error" ",\n");
+
+
+
+
+Fc(tl, 0, "\t." "backend_fetch" "_func = VGC_function_vcl_" "backend_fetch" ",\n");
+
+
+
+Fc(tl, 0, "\t." "backend_response" "_func = VGC_function_vcl_" "backend_response" ",\n");
+
+
+
+
+Fc(tl, 0, "\t." "deliver" "_func = VGC_function_vcl_" "deliver" ",\n");
+
+
+
+
+Fc(tl, 0, "\t." "fini" "_func = VGC_function_vcl_" "fini" ",\n");
+
+
+Fc(tl, 0, "\t." "hash" "_func = VGC_function_vcl_" "hash" ",\n");
+
+
+Fc(tl, 0, "\t." "hit" "_func = VGC_function_vcl_" "hit" ",\n");
+
+
+
+
+
+
+
+Fc(tl, 0, "\t." "init" "_func = VGC_function_vcl_" "init" ",\n");
+
+
+
+Fc(tl, 0, "\t." "miss" "_func = VGC_function_vcl_" "miss" ",\n");
+
+
+
+
+
+Fc(tl, 0, "\t." "pass" "_func = VGC_function_vcl_" "pass" ",\n");
+
+
+
+
+Fc(tl, 0, "\t." "pipe" "_func = VGC_function_vcl_" "pipe" ",\n");
+
+
+
+Fc(tl, 0, "\t." "purge" "_func = VGC_function_vcl_" "purge" ",\n");
+
+
+
+Fc(tl, 0, "\t." "recv" "_func = VGC_function_vcl_" "recv" ",\n");
+
+
+
+
+
+
+Fc(tl, 0, "\t." "synth" "_func = VGC_function_vcl_" "synth" ",\n");
+# 418 "vcc_compile.c" 2
+
+ Fc(tl, 0, "};\n");
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static struct source *
 vcc_new_source(const char *b, const char *e, const char *name)
 {
-	struct source *sp;
+ struct source *sp;
 
-	if (e == NULL)
-		e = strchr(b, '\0');
-	sp = calloc(sizeof *sp, 1);
-	assert(sp != NULL);
-	sp->name = strdup(name);
-	AN(sp->name);
-	sp->b = b;
-	sp->e = e;
-	return (sp);
+ if (e == ((void *)0))
+  e = (__extension__ (__builtin_constant_p ('\0') && !__builtin_constant_p (b) && ('\0') == '\0' ? (char *) __rawmemchr (b, '\0') : __builtin_strchr (b, '\0')));
+ sp = calloc(sizeof *sp, 1);
+ do { if (!(sp != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 432, "sp != NULL", VAS_ASSERT); } } while (0);
+ sp->name = (__extension__ (__builtin_constant_p (name) && ((size_t)(const void *)((name) + 1) - (size_t)(const void *)(name) == 1) ? (((const char *) (name))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (name) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, name, __len); __retval; })) : __strdup (name)));
+ do { do { if (!((sp->name) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 434, "(sp->name) != 0", VAS_ASSERT); } } while (0); } while (0);
+ sp->b = b;
+ sp->e = e;
+ return (sp);
 }
 
 static void
 vcc_destroy_source(struct source *sp)
 {
 
-	if (sp->freeit != NULL)
-		free(sp->freeit);
-	free(sp->name);
-	free(sp);
+ if (sp->freeit != ((void *)0))
+  free(sp->freeit);
+ free(sp->name);
+ free(sp);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static struct source *
 vcc_file_source(const struct vcc *tl, struct vsb *sb, const char *fn)
 {
-	char *f;
-	struct source *sp;
+ char *f;
+ struct source *sp;
 
-	if (!tl->unsafe_path && strchr(fn, '/') != NULL) {
-		VSB_printf(sb, "Include path is unsafe '%s'\n", fn);
-		return (NULL);
-	}
-	f = VFIL_readfile(tl->vcl_dir, fn, NULL);
-	if (f == NULL) {
-		VSB_printf(sb, "Cannot read file '%s': %s\n",
-		    fn, strerror(errno));
-		return (NULL);
-	}
-	sp = vcc_new_source(f, NULL, fn);
-	sp->freeit = f;
-	return (sp);
+ if (!tl->unsafe_path && (__extension__ (__builtin_constant_p ('/') && !__builtin_constant_p (fn) && ('/') == '\0' ? (char *) __rawmemchr (fn, '/') : __builtin_strchr (fn, '/'))) != ((void *)0)) {
+  VSB_printf(sb, "Include path is unsafe '%s'\n", fn);
+  return (((void *)0));
+ }
+ f = VFIL_readfile(tl->vcl_dir, fn, ((void *)0));
+ if (f == ((void *)0)) {
+  VSB_printf(sb, "Cannot read file '%s': %s\n",
+      fn, strerror((*__errno_location ())));
+  return (((void *)0));
+ }
+ sp = vcc_new_source(f, ((void *)0), fn);
+ sp->freeit = f;
+ return (sp);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static void
 vcc_resolve_includes(struct vcc *tl)
 {
-	struct token *t, *t1, *t2;
-	struct source *sp;
+ struct token *t, *t1, *t2;
+ struct source *sp;
 
-	VTAILQ_FOREACH(t, &tl->tokens, list) {
-		if (t->tok != ID || !vcc_IdIs(t, "include"))
-			continue;
+ for ((t) = (((&tl->tokens))->vtqh_first); (t); (t) = (((t))->list.vtqe_next)) {
+  if (t->tok != 132 || !vcc_IdIs(t, "include"))
+   continue;
 
-		t1 = VTAILQ_NEXT(t, list);
-		assert(t1 != NULL);	/* There's always an EOI */
-		if (t1->tok != CSTR) {
-			VSB_printf(tl->sb,
-			    "include not followed by string constant.\n");
-			vcc_ErrWhere(tl, t1);
-			return;
-		}
-		t2 = VTAILQ_NEXT(t1, list);
-		assert(t2 != NULL);	/* There's always an EOI */
+  t1 = ((t)->list.vtqe_next);
+  do { if (!(t1 != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 486, "t1 != NULL", VAS_ASSERT); } } while (0);
+  if (t1->tok != 130) {
+   VSB_printf(tl->sb,
+       "include not followed by string constant.\n");
+   vcc_ErrWhere(tl, t1);
+   return;
+  }
+  t2 = ((t1)->list.vtqe_next);
+  do { if (!(t2 != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 494, "t2 != NULL", VAS_ASSERT); } } while (0);
 
-		if (t2->tok != ';') {
-			VSB_printf(tl->sb,
-			    "include <string> not followed by semicolon.\n");
-			vcc_ErrWhere(tl, t1);
-			return;
-		}
+  if (t2->tok != ';') {
+   VSB_printf(tl->sb,
+       "include <string> not followed by semicolon.\n");
+   vcc_ErrWhere(tl, t1);
+   return;
+  }
 
-		sp = vcc_file_source(tl, tl->sb, t1->dec);
-		if (sp == NULL) {
-			vcc_ErrWhere(tl, t1);
-			return;
-		}
-		VTAILQ_INSERT_TAIL(&tl->sources, sp, list);
-		sp->idx = tl->nsources++;
-		tl->t = t2;
-		vcc_Lexer(tl, sp);
+  sp = vcc_file_source(tl, tl->sb, t1->dec);
+  if (sp == ((void *)0)) {
+   vcc_ErrWhere(tl, t1);
+   return;
+  }
+  do { (((sp))->list.vtqe_next) = ((void *)0); (sp)->list.vtqe_prev = (&tl->sources)->vtqh_last; *(&tl->sources)->vtqh_last = (sp); (&tl->sources)->vtqh_last = &(((sp))->list.vtqe_next); } while (0);
+  sp->idx = tl->nsources++;
+  tl->t = t2;
+  vcc_Lexer(tl, sp);
 
-		VTAILQ_REMOVE(&tl->tokens, t, list);
-		VTAILQ_REMOVE(&tl->tokens, t1, list);
-		VTAILQ_REMOVE(&tl->tokens, t2, list);
-		if (!tl->err)
-			vcc_resolve_includes(tl);
-		return;
-	}
+  do { if (((((t))->list.vtqe_next)) != ((void *)0)) (((t))->list.vtqe_next)->list.vtqe_prev = (t)->list.vtqe_prev; else { (&tl->tokens)->vtqh_last = (t)->list.vtqe_prev; } *(t)->list.vtqe_prev = (((t))->list.vtqe_next); ; ; } while (0);
+  do { if (((((t1))->list.vtqe_next)) != ((void *)0)) (((t1))->list.vtqe_next)->list.vtqe_prev = (t1)->list.vtqe_prev; else { (&tl->tokens)->vtqh_last = (t1)->list.vtqe_prev; } *(t1)->list.vtqe_prev = (((t1))->list.vtqe_next); ; ; } while (0);
+  do { if (((((t2))->list.vtqe_next)) != ((void *)0)) (((t2))->list.vtqe_next)->list.vtqe_prev = (t2)->list.vtqe_prev; else { (&tl->tokens)->vtqh_last = (t2)->list.vtqe_prev; } *(t2)->list.vtqe_prev = (((t2))->list.vtqe_next); ; ; } while (0);
+  if (!tl->err)
+   vcc_resolve_includes(tl);
+  return;
+ }
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static struct vcc *
 vcc_NewVcc(const struct vcc *tl0)
 {
-	struct vcc *tl;
-	int i;
+ struct vcc *tl;
+ int i;
 
-	ALLOC_OBJ(tl, VCC_MAGIC);
-	AN(tl);
-	if (tl0 != NULL) {
-		REPLACE(tl->builtin_vcl, tl0->builtin_vcl);
-		REPLACE(tl->vcl_dir, tl0->vcl_dir);
-		REPLACE(tl->vmod_dir, tl0->vmod_dir);
-		tl->vars = tl0->vars;
-		tl->err_unref = tl0->err_unref;
-		tl->allow_inline_c = tl0->allow_inline_c;
-		tl->unsafe_path = tl0->unsafe_path;
-	} else {
-		tl->err_unref = 1;
-	}
-	VTAILQ_INIT(&tl->symbols);
-	VTAILQ_INIT(&tl->inifin);
-	VTAILQ_INIT(&tl->membits);
-	VTAILQ_INIT(&tl->tokens);
-	VTAILQ_INIT(&tl->sources);
+ do { (tl) = calloc(sizeof *(tl), 1); if ((tl) != ((void *)0)) (tl)->magic = (0x24ad719d); } while (0);
+ do { do { if (!((tl) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 531, "(tl) != 0", VAS_ASSERT); } } while (0); } while (0);
+ if (tl0 != ((void *)0)) {
+  do { free(tl->builtin_vcl); if ((tl0->builtin_vcl) != ((void *)0)) { tl->builtin_vcl = (__extension__ (__builtin_constant_p (tl0->builtin_vcl) && ((size_t)(const void *)((tl0->builtin_vcl) + 1) - (size_t)(const void *)(tl0->builtin_vcl) == 1) ? (((const char *) (tl0->builtin_vcl))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (tl0->builtin_vcl) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, tl0->builtin_vcl, __len); __retval; })) : __strdup (tl0->builtin_vcl))); do { do { if (!(((tl->builtin_vcl)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 533, "((tl->builtin_vcl)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->builtin_vcl = ((void *)0); } } while (0);
+  do { free(tl->vcl_dir); if ((tl0->vcl_dir) != ((void *)0)) { tl->vcl_dir = (__extension__ (__builtin_constant_p (tl0->vcl_dir) && ((size_t)(const void *)((tl0->vcl_dir) + 1) - (size_t)(const void *)(tl0->vcl_dir) == 1) ? (((const char *) (tl0->vcl_dir))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (tl0->vcl_dir) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, tl0->vcl_dir, __len); __retval; })) : __strdup (tl0->vcl_dir))); do { do { if (!(((tl->vcl_dir)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 534, "((tl->vcl_dir)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->vcl_dir = ((void *)0); } } while (0);
+  do { free(tl->vmod_dir); if ((tl0->vmod_dir) != ((void *)0)) { tl->vmod_dir = (__extension__ (__builtin_constant_p (tl0->vmod_dir) && ((size_t)(const void *)((tl0->vmod_dir) + 1) - (size_t)(const void *)(tl0->vmod_dir) == 1) ? (((const char *) (tl0->vmod_dir))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (tl0->vmod_dir) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, tl0->vmod_dir, __len); __retval; })) : __strdup (tl0->vmod_dir))); do { do { if (!(((tl->vmod_dir)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 535, "((tl->vmod_dir)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->vmod_dir = ((void *)0); } } while (0);
+  tl->vars = tl0->vars;
+  tl->err_unref = tl0->err_unref;
+  tl->allow_inline_c = tl0->allow_inline_c;
+  tl->unsafe_path = tl0->unsafe_path;
+ } else {
+  tl->err_unref = 1;
+ }
+ do { (((&tl->symbols))->vtqh_first) = ((void *)0); (&tl->symbols)->vtqh_last = &(((&tl->symbols))->vtqh_first); } while (0);
+ do { (((&tl->inifin))->vtqh_first) = ((void *)0); (&tl->inifin)->vtqh_last = &(((&tl->inifin))->vtqh_first); } while (0);
+ do { (((&tl->membits))->vtqh_first) = ((void *)0); (&tl->membits)->vtqh_last = &(((&tl->membits))->vtqh_first); } while (0);
+ do { (((&tl->tokens))->vtqh_first) = ((void *)0); (&tl->tokens)->vtqh_last = &(((&tl->tokens))->vtqh_first); } while (0);
+ do { (((&tl->sources))->vtqh_first) = ((void *)0); (&tl->sources)->vtqh_last = &(((&tl->sources))->vtqh_first); } while (0);
 
-	tl->nsources = 0;
+ tl->nsources = 0;
 
-	/* General C code */
-	tl->fc = VSB_new_auto();
-	assert(tl->fc != NULL);
 
-	/* Forward decls (.h like) */
-	tl->fh = VSB_new_auto();
-	assert(tl->fh != NULL);
+ tl->fc = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ do { if (!(tl->fc != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 553, "tl->fc != NULL", VAS_ASSERT); } } while (0);
 
-	/* body code of methods */
-	for (i = 0; i < VCL_MET_MAX; i++) {
-		tl->fm[i] = VSB_new_auto();
-		assert(tl->fm[i] != NULL);
-	}
-	return (tl);
+
+ tl->fh = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ do { if (!(tl->fh != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 557, "tl->fh != NULL", VAS_ASSERT); } } while (0);
+
+
+ for (i = 0; i < 15; i++) {
+  tl->fm[i] = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+  do { if (!(tl->fm[i] != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 562, "tl->fm[i] != NULL", VAS_ASSERT); } } while (0);
+ }
+ return (tl);
 }
 
-/*--------------------------------------------------------------------*/
+
 
 static char *
 vcc_DestroyTokenList(struct vcc *tl, char *ret)
 {
-	struct membit *mb;
-	struct source *sp;
-	struct symbol *sym;
-	int i;
+ struct membit *mb;
+ struct source *sp;
+ struct symbol *sym;
+ int i;
 
-	while (!VTAILQ_EMPTY(&tl->membits)) {
-		mb = VTAILQ_FIRST(&tl->membits);
-		VTAILQ_REMOVE(&tl->membits, mb, list);
-		free(mb->ptr);
-		free(mb);
-	}
-	while (!VTAILQ_EMPTY(&tl->sources)) {
-		sp = VTAILQ_FIRST(&tl->sources);
-		VTAILQ_REMOVE(&tl->sources, sp, list);
-		vcc_destroy_source(sp);
-	}
+ while (!((&tl->membits)->vtqh_first == ((void *)0))) {
+  mb = ((&tl->membits)->vtqh_first);
+  do { if (((((mb))->list.vtqe_next)) != ((void *)0)) (((mb))->list.vtqe_next)->list.vtqe_prev = (mb)->list.vtqe_prev; else { (&tl->membits)->vtqh_last = (mb)->list.vtqe_prev; } *(mb)->list.vtqe_prev = (((mb))->list.vtqe_next); ; ; } while (0);
+  free(mb->ptr);
+  free(mb);
+ }
+ while (!((&tl->sources)->vtqh_first == ((void *)0))) {
+  sp = ((&tl->sources)->vtqh_first);
+  do { if (((((sp))->list.vtqe_next)) != ((void *)0)) (((sp))->list.vtqe_next)->list.vtqe_prev = (sp)->list.vtqe_prev; else { (&tl->sources)->vtqh_last = (sp)->list.vtqe_prev; } *(sp)->list.vtqe_prev = (((sp))->list.vtqe_next); ; ; } while (0);
+  vcc_destroy_source(sp);
+ }
 
-	while (!VTAILQ_EMPTY(&tl->symbols)) {
-		sym = VTAILQ_FIRST(&tl->symbols);
-		VTAILQ_REMOVE(&tl->symbols, sym, list);
-		FREE_OBJ(sym);
-	}
+ while (!((&tl->symbols)->vtqh_first == ((void *)0))) {
+  sym = ((&tl->symbols)->vtqh_first);
+  do { if (((((sym))->list.vtqe_next)) != ((void *)0)) (((sym))->list.vtqe_next)->list.vtqe_prev = (sym)->list.vtqe_prev; else { (&tl->symbols)->vtqh_last = (sym)->list.vtqe_prev; } *(sym)->list.vtqe_prev = (((sym))->list.vtqe_next); ; ; } while (0);
+  do { (sym)->magic = (0); free(sym); sym = ((void *)0); } while (0);
+ }
 
-	VSB_delete(tl->fh);
-	VSB_delete(tl->fc);
-	for (i = 0; i < VCL_MET_MAX; i++)
-		VSB_delete(tl->fm[i]);
+ VSB_delete(tl->fh);
+ VSB_delete(tl->fc);
+ for (i = 0; i < 15; i++)
+  VSB_delete(tl->fm[i]);
 
-	free(tl);
-	return (ret);
+ free(tl);
+ return (ret);
 }
 
-/*--------------------------------------------------------------------
- * Compile the VCL code from the given source and return the C-source
- */
+
+
+
 
 static char *
 vcc_CompileSource(const struct vcc *tl0, struct vsb *sb, struct source *sp)
 {
-	struct vcc *tl;
-	struct symbol *sym;
-	const struct var *v;
-	struct vsb *vsb;
+ struct vcc *tl;
+ struct symbol *sym;
+ const struct var *v;
+ struct vsb *vsb;
 
-	char *of;
-	int i;
+ char *of;
+ int i;
 
-	tl = vcc_NewVcc(tl0);
-	tl->sb = sb;
+ tl = vcc_NewVcc(tl0);
+ tl->sb = sb;
 
-	vcc_Expr_Init(tl);
+ vcc_Expr_Init(tl);
 
-	for (v = tl->vars; v->name != NULL; v++) {
-		if (v->fmt == HEADER) {
-			sym = VCC_AddSymbolStr(tl, v->name, SYM_WILDCARD);
-			sym->wildcard = vcc_Var_Wildcard;
-		} else {
-			sym = VCC_AddSymbolStr(tl, v->name, SYM_VAR);
-		}
-		sym->var = v;
-		sym->fmt = v->fmt;
-		sym->eval = vcc_Eval_Var;
-		sym->r_methods = v->r_methods;
-	}
+ for (v = tl->vars; v->name != ((void *)0); v++) {
+  if (v->fmt == HEADER) {
+   sym = VCC_AddSymbolStr(tl, v->name, SYM_WILDCARD);
+   sym->wildcard = vcc_Var_Wildcard;
+  } else {
+   sym = VCC_AddSymbolStr(tl, v->name, SYM_VAR);
+  }
+  sym->var = v;
+  sym->fmt = v->fmt;
+  sym->eval = vcc_Eval_Var;
+  sym->r_methods = v->r_methods;
+ }
 
-	sym = VCC_AddSymbolStr(tl, "storage.", SYM_WILDCARD);
-	sym->wildcard = vcc_Stv_Wildcard;
+ sym = VCC_AddSymbolStr(tl, "storage.", SYM_WILDCARD);
+ sym->wildcard = vcc_Stv_Wildcard;
 
-	Fh(tl, 0, "/* ---===### VCC generated .h code ###===---*/\n");
-	Fc(tl, 0, "\n/* ---===### VCC generated .c code ###===---*/\n");
-	Fh(tl, 0, "\nextern const struct VCL_conf VCL_conf;\n");
+ Fh(tl, 0, "/* ---===### VCC generated .h code ###===---*/\n");
+ Fc(tl, 0, "\n/* ---===### VCC generated .c code ###===---*/\n");
+ Fh(tl, 0, "\nextern const struct VCL_conf VCL_conf;\n");
 
-	/* Register and lex the main source */
-	VTAILQ_INSERT_TAIL(&tl->sources, sp, list);
-	sp->idx = tl->nsources++;
-	vcc_Lexer(tl, sp);
-	if (tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
 
-	/* Register and lex the builtin VCL */
-	sp = vcc_new_source(tl->builtin_vcl, NULL, "Builtin");
-	assert(sp != NULL);
-	VTAILQ_INSERT_TAIL(&tl->sources, sp, list);
-	sp->idx = tl->nsources++;
-	vcc_Lexer(tl, sp);
-	if (tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
+ do { (((sp))->list.vtqe_next) = ((void *)0); (sp)->list.vtqe_prev = (&tl->sources)->vtqh_last; *(&tl->sources)->vtqh_last = (sp); (&tl->sources)->vtqh_last = &(((sp))->list.vtqe_next); } while (0);
+ sp->idx = tl->nsources++;
+ vcc_Lexer(tl, sp);
+ if (tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	/* Add "END OF INPUT" token */
-	vcc_AddToken(tl, EOI, sp->e, sp->e);
-	if (tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
 
-	/* Expand and lex any includes in the token string */
-	vcc_resolve_includes(tl);
-	if (tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
+ sp = vcc_new_source(tl->builtin_vcl, ((void *)0), "Builtin");
+ do { if (!(sp != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 653, "sp != NULL", VAS_ASSERT); } } while (0);
+ do { (((sp))->list.vtqe_next) = ((void *)0); (sp)->list.vtqe_prev = (&tl->sources)->vtqh_last; *(&tl->sources)->vtqh_last = (sp); (&tl->sources)->vtqh_last = &(((sp))->list.vtqe_next); } while (0);
+ sp->idx = tl->nsources++;
+ vcc_Lexer(tl, sp);
+ if (tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	/* Parse the token string */
-	tl->t = VTAILQ_FIRST(&tl->tokens);
-	vcc_Parse(tl);
-	if (tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
 
-	/* Check if we have any backends at all */
-	if (tl->default_director == NULL) {
-		VSB_printf(tl->sb,
-		    "No backends or directors found in VCL program, "
-		    "at least one is necessary.\n");
-		tl->err = 1;
-		return (vcc_DestroyTokenList(tl, NULL));
-	}
+ vcc_AddToken(tl, 131, sp->e, sp->e);
+ if (tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	/* Configure the default director */
-	vcc_AddRef(tl, tl->t_default_director, SYM_BACKEND);
 
-	/* Check for orphans */
-	if (vcc_CheckReferences(tl))
-		return (vcc_DestroyTokenList(tl, NULL));
+ vcc_resolve_includes(tl);
+ if (tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	/* Check that all action returns are legal */
-	if (vcc_CheckAction(tl) || tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
 
-	/* Check that all variable uses are legal */
-	if (vcc_CheckUses(tl) || tl->err)
-		return (vcc_DestroyTokenList(tl, NULL));
+ tl->t = ((&tl->tokens)->vtqh_first);
+ vcc_Parse(tl);
+ if (tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	/* Emit method functions */
-	Fh(tl, 1, "\n");
-	for (i = 1; i < VCL_MET_MAX; i++) {
-		Fh(tl, 1,
-		    "int __match_proto__(vcl_func_f) "
-		    "VGC_function_%s(VRT_CTX);\n",
-		    method_tab[i].name);
-		Fc(tl, 1, "\nint __match_proto__(vcl_func_f)\n");
-		Fc(tl, 1,
-		    "VGC_function_%s(VRT_CTX)\n",
-		    method_tab[i].name);
-		AZ(VSB_finish(tl->fm[i]));
-		Fc(tl, 1, "{\n");
-		/*
-		 * We want vmods to be able set a FAIL return value
-		 * in members called from vcl_init, so set OK up front
-		 * and return with whatever was set last.
-		 */
-		if (method_tab[i].bitval == VCL_MET_INIT)
-			Fc(tl, 1, "  VRT_handling(ctx, VCL_RET_OK);\n");
-		Fc(tl, 1, "%s", VSB_data(tl->fm[i]));
-		if (method_tab[i].bitval == VCL_MET_INIT)
-			Fc(tl, 1, "  return(1);\n");
-		Fc(tl, 1, "}\n");
-	}
 
-	EmitInitFini(tl);
+ if (tl->default_director == ((void *)0)) {
+  VSB_printf(tl->sb,
+      "No backends or directors found in VCL program, "
+      "at least one is necessary.\n");
+  tl->err = 1;
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
+ }
 
-	EmitStruct(tl);
 
-	/* Combine it all */
+ vcc_AddRef(tl, tl->t_default_director, SYM_BACKEND);
 
-	vsb = VSB_new_auto();
-	AN(vsb);
 
-	vcl_output_lang_h(vsb);
+ if (vcc_CheckReferences(tl))
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	EmitCoordinates(tl, vsb);
 
-	AZ(VSB_finish(tl->fh));
-	VSB_cat(vsb, VSB_data(tl->fh));
+ if (vcc_CheckAction(tl) || tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	AZ(VSB_finish(tl->fc));
-	VSB_cat(vsb, VSB_data(tl->fc));
 
-	AZ(VSB_finish(vsb));
+ if (vcc_CheckUses(tl) || tl->err)
+  return (vcc_DestroyTokenList(tl, ((void *)0)));
 
-	of = strdup(VSB_data(vsb));
-	AN(of);
 
-	VSB_delete(vsb);
+ Fh(tl, 1, "\n");
+ for (i = 1; i < 15; i++) {
+  Fh(tl, 1,
+      "int __match_proto__(vcl_func_f) "
+      "VGC_function_%s(VRT_CTX);\n",
+      method_tab[i].name);
+  Fc(tl, 1, "\nint __match_proto__(vcl_func_f)\n");
+  Fc(tl, 1,
+      "VGC_function_%s(VRT_CTX)\n",
+      method_tab[i].name);
+  do { do { if (!((VSB_finish(tl->fm[i])) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 711, "(VSB_finish(tl->fm[i])) == 0", VAS_ASSERT); } } while (0); } while (0);
+  Fc(tl, 1, "{\n");
 
-	/* done */
-	return (vcc_DestroyTokenList(tl, of));
+
+
+
+
+  if (method_tab[i].bitval == (1U << 13))
+   Fc(tl, 1, "  VRT_handling(ctx, VCL_RET_OK);\n");
+  Fc(tl, 1, "%s", VSB_data(tl->fm[i]));
+  if (method_tab[i].bitval == (1U << 13))
+   Fc(tl, 1, "  return(1);\n");
+  Fc(tl, 1, "}\n");
+ }
+
+ EmitInitFini(tl);
+
+ EmitStruct(tl);
+
+
+
+ vsb = VSB_new(((void *)0), ((void *)0), 0, 0x00000001);
+ do { do { if (!((vsb) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 733, "(vsb) != 0", VAS_ASSERT); } } while (0); } while (0);
+
+ vcl_output_lang_h(vsb);
+
+ EmitCoordinates(tl, vsb);
+
+ do { do { if (!((VSB_finish(tl->fh)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 739, "(VSB_finish(tl->fh)) == 0", VAS_ASSERT); } } while (0); } while (0);
+ VSB_cat(vsb, VSB_data(tl->fh));
+
+ do { do { if (!((VSB_finish(tl->fc)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 742, "(VSB_finish(tl->fc)) == 0", VAS_ASSERT); } } while (0); } while (0);
+ VSB_cat(vsb, VSB_data(tl->fc));
+
+ do { do { if (!((VSB_finish(vsb)) == 0)) { VAS_Fail(__func__, "vcc_compile.c", 745, "(VSB_finish(vsb)) == 0", VAS_ASSERT); } } while (0); } while (0);
+
+ of = (__extension__ (__builtin_constant_p (VSB_data(vsb)) && ((size_t)(const void *)((VSB_data(vsb)) + 1) - (size_t)(const void *)(VSB_data(vsb)) == 1) ? (((const char *) (VSB_data(vsb)))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (VSB_data(vsb)) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, VSB_data(vsb), __len); __retval; })) : __strdup (VSB_data(vsb))));
+ do { do { if (!((of) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 748, "(of) != 0", VAS_ASSERT); } } while (0); } while (0);
+
+ VSB_delete(vsb);
+
+
+ return (vcc_DestroyTokenList(tl, of));
 }
 
-/*--------------------------------------------------------------------
- * Compile the VCL code in the argument.  Error messages, if any are
- * formatted into the vsb.
- */
+
+
+
+
 
 char *
 VCC_Compile(const struct vcc *tl, struct vsb *sb, const char *b)
 {
-	struct source *sp;
-	char *r;
+ struct source *sp;
+ char *r;
 
-	sp = vcc_new_source(b, NULL, "input");
-	if (sp == NULL)
-		return (NULL);
-	r = vcc_CompileSource(tl, sb, sp);
-	return (r);
+ sp = vcc_new_source(b, ((void *)0), "input");
+ if (sp == ((void *)0))
+  return (((void *)0));
+ r = vcc_CompileSource(tl, sb, sp);
+ return (r);
 }
 
-/*--------------------------------------------------------------------
- * Allocate a compiler instance
- */
+
+
+
 
 struct vcc *
 VCC_New(void)
 {
-	struct vcc *tl;
+ struct vcc *tl;
 
-	tl = vcc_NewVcc(NULL);
+ tl = vcc_NewVcc(((void *)0));
 
-	tl->vars = vcc_vars;
+ tl->vars = vcc_vars;
 
-	return (tl);
+ return (tl);
 }
 
-/*--------------------------------------------------------------------
- * Configure builtin VCL source code
- */
+
+
+
 
 void
 VCC_Builtin_VCL(struct vcc *tl, const char *str)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	REPLACE(tl->builtin_vcl, str);
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 798, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 798, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ do { free(tl->builtin_vcl); if ((str) != ((void *)0)) { tl->builtin_vcl = (__extension__ (__builtin_constant_p (str) && ((size_t)(const void *)((str) + 1) - (size_t)(const void *)(str) == 1) ? (((const char *) (str))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (str) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, str, __len); __retval; })) : __strdup (str))); do { do { if (!(((tl->builtin_vcl)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 799, "((tl->builtin_vcl)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->builtin_vcl = ((void *)0); } } while (0);
 }
 
-/*--------------------------------------------------------------------
- * Configure default VCL source directory
- */
+
+
+
 
 void
 VCC_VCL_dir(struct vcc *tl, const char *str)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	REPLACE(tl->vcl_dir, str);
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 810, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 810, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ do { free(tl->vcl_dir); if ((str) != ((void *)0)) { tl->vcl_dir = (__extension__ (__builtin_constant_p (str) && ((size_t)(const void *)((str) + 1) - (size_t)(const void *)(str) == 1) ? (((const char *) (str))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (str) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, str, __len); __retval; })) : __strdup (str))); do { do { if (!(((tl->vcl_dir)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 811, "((tl->vcl_dir)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->vcl_dir = ((void *)0); } } while (0);
 }
 
-/*--------------------------------------------------------------------
- * Configure default VMOD directory
- */
+
+
+
 
 void
 VCC_VMOD_dir(struct vcc *tl, const char *str)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	REPLACE(tl->vmod_dir, str);
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 822, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 822, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ do { free(tl->vmod_dir); if ((str) != ((void *)0)) { tl->vmod_dir = (__extension__ (__builtin_constant_p (str) && ((size_t)(const void *)((str) + 1) - (size_t)(const void *)(str) == 1) ? (((const char *) (str))[0] == '\0' ? (char *) calloc ((size_t) 1, (size_t) 1) : ({ size_t __len = strlen (str) + 1; char *__retval = (char *) malloc (__len); if (__retval != ((void *)0)) __retval = (char *) memcpy (__retval, str, __len); __retval; })) : __strdup (str))); do { do { if (!(((tl->vmod_dir)) != 0)) { VAS_Fail(__func__, "vcc_compile.c", 823, "((tl->vmod_dir)) != 0", VAS_ASSERT); } } while (0); } while (0); } else { tl->vmod_dir = ((void *)0); } } while (0);
 }
 
-/*--------------------------------------------------------------------
- * Configure settings
- */
+
+
+
 
 void
 VCC_Err_Unref(struct vcc *tl, unsigned u)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	tl->err_unref = u;
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 834, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 834, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ tl->err_unref = u;
 }
 
 void
 VCC_Allow_InlineC(struct vcc *tl, unsigned u)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	tl->allow_inline_c = u;
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 842, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 842, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ tl->allow_inline_c = u;
 }
 
 void
 VCC_Unsafe_Path(struct vcc *tl, unsigned u)
 {
 
-	CHECK_OBJ_NOTNULL(tl, VCC_MAGIC);
-	tl->unsafe_path = u;
+ do { do { if (!((tl) != ((void *)0))) { VAS_Fail(__func__, "vcc_compile.c", 850, "(tl) != NULL", VAS_ASSERT); } } while (0); do { if (!((tl)->magic == 0x24ad719d)) { VAS_Fail(__func__, "vcc_compile.c", 850, "(tl)->magic == 0x24ad719d", VAS_ASSERT); } } while (0); } while (0);
+ tl->unsafe_path = u;
 }
